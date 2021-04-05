@@ -1,0 +1,85 @@
+\documentclass[a4paper, 11pt]{article}
+
+% Language
+% \usepackage[ngerman]{babel}                             % Damit das Dokument auf Deutsch ist
+\usepackage[T1]{fontenc}                              % To support copy and paste of chars like ÄÜÖ from the PDF file
+\usepackage[utf8]{inputenc}                             % UTF8 Support
+\usepackage{parskip}                                    % For the corret line spacing.
+
+% Layout
+\usepackage[margin=2cm]{geometry}                       % 2cm page margin
+\usepackage{fancyhdr}                                   % Graphics
+\usepackage{color}                                      % Color
+\usepackage{setspace}                                   % For setting the line spacing
+\usepackage{enumitem}                                   % For removing the spacing between \items
+\usepackage{lmodern}                                    % For removing some "LaTeX Font Warning" warnings for unusual font sizes
+
+% Citing
+\usepackage[style=authoryear, backend=biber]{biblatex}  % For citing
+\usepackage{csquotes}                                   % Needed by biblatex
+
+% Objects
+\usepackage{tabularx}                                   % Advanced tables
+\usepackage{enumitem}                                   % customize itemize thingis
+\usepackage{hyperref}                                   % Links
+\usepackage[footnotes,definitionLists,html,hashEnumerators,smartEllipses,hybrid,citations,pipeTables,tableCaptions]{markdown}
+\usepackage{float}                                      % For creating custom floats
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Configuaration
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Layout
+\renewcommand{\familydefault}{\sfdefault} % Setting the font to sans serif -> Arial
+\setstretch{1.25}                         % Setting the linespacing
+
+% Values
+\title{Title}
+\author{xFrednet}
+\date{\today}
+
+% Citing
+\addbibresource{references.bib}
+
+% Attachment float
+\newfloat{attachment}{H}{lop}
+\floatname{attachment}{Attachment}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Document
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+% Roman numeration
+\newcounter{savepage}
+\pagenumbering{Roman}
+
+    % Table of Conetns
+    \tableofcontents
+    \newpage
+
+    % Other indices
+    \listoffigures
+    \listoftables
+    \listof{attachment}{Attachments}
+    \newpage
+
+    % Arabic numeration
+    \setcounter{savepage}{\arabic{page}}
+    \pagenumbering{arabic}
+    \newpage
+
+    \input{sections.tex}
+    \newpage
+
+    % Roman numeration
+    \pagenumbering{Roman}
+    \setcounter{page}{\thesavepage}
+
+    % Literaturverzeichnis
+    \printbibliography
+    \newpage
+
+    % Attachments
+    \input{attachments.tex}
+
+\end{document}

@@ -1,0 +1,24 @@
+# Latex stuff
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.dvi
+*.log
+*.out
+*.run.xml
+*.synctex
+*.tex.bbl
+*.tex.blg
+*.toc
+*.lof
+*.lot
+*.tps
+*.lop
+*.acn
+*.glo
+*.ist
+*.lua
+
+# markdown stuff
+**/_markdown_main/

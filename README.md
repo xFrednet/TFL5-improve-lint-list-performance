@@ -9,7 +9,9 @@ Latest handing date: 2021-05-04
 * TODO xFrednet 2021-04-15: Maybe add an abstract section to the start.
 
 ## Building
-Use the following comment to build the actual document:
+Use the following comments to build the actual document:
 ´´´sh
+$ pdflatex --shell-escape main.tex
+$ biber main
 $ pdflatex --shell-escape main.tex
 ´´´

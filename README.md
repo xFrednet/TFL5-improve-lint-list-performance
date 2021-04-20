@@ -5,13 +5,17 @@ The secondary goal of this repo is to train my English writing skills since I've
 
 Latest handing date: 2021-05-04
 
+## Typos
+Spelling is sadly not my strong suite, I'll go through the paper at the end to correct mistakes and reformulate some content.
+
 ## TODOs (Those that are not included in the source files them self)
 * TODO xFrednet 2021-04-15: Maybe add an abstract section to the start.
 
 ## Building
 Use the following comments to build the actual document:
-´´´sh
+
+```sh
 $ pdflatex --shell-escape main.tex
 $ biber main
 $ pdflatex --shell-escape main.tex
-´´´
+```

@@ -25,6 +25,7 @@ This paper will end with a summary of the reviewed aspects and a conclusion as w
 <!--
 
 * Developed by mozilla
+* Used by Google, Microsoft, Linux Kernel, Amazon
 * Rust foundation
 * Opensource
 * MIT licence

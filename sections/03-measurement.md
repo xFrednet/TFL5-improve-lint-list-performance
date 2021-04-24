@@ -5,11 +5,17 @@ This chapter will measure the current fulfillment for the previously in \ref{sec
 _Mozilla Observatory_ is a collection of tools that can analyze a website to determine which available security measures have been utilized by it [@github.observatory.readme]. These security is focussed on values that can be set in the HTTP header to indicate that opt-in security options should be enabled by the browser [@TODO]. The Rust development documentation links to a free [online interface](https://observatory.mozilla.org/) for the Mozilla Observatory that is provided by the Mozilla Foundation free of charge.
 
 ### Scoring
-The result of the analyzes is summarized in a single score with a corresponding grade. The score is calculated using a baseline each checked criteria can add bonus points or subtracted penalty. This implementation is used to give different weight to specific configurations. The significance of these modifiers are based on how important the analyzed aspect for security. Scores can range from a minimum of 0 to a maximum of 135. A score of 100 and above corresponds to the grade _A+_ [@github.observatory.scoring].
+The result of the analyzes is summarized in a single score with a corresponding grade. The score is calculated using a baseline each checked criteria can add bonus points or subtracted penalty. This implementation is used to give different weight to specific configurations. The significance of these modifiers are based on how important the analyzed aspect for security. Scores can range from a minimum of 0 to a maximum of 135, the score of 100 already indicates that the website is configured correctly a higher score can be archived by archiving bonuses. A score of 100 and above corresponds to the grade _A+_ [@github.observatory.scoring].
 
-The observatory documentation notes that all websites are graded equally, this means certain graded configurations might be unimportant for the specific use case [@mozilla.observatory.faq]. 
+The observatory documentation notes that all websites are graded equally, this means certain graded configurations might be unimportant for the specific use case [@mozilla.observatory.faq].
 
 ### Measurement
+Scanning Clippy's lint list results in an overall grade of _C_ with a score of 55/100. The score is the result of the following three subtractions:
+
+\input{sections/03-measurement/observatory-results-clippy-2021-04-24.tex}
+
+The complete JSON output of the scan is included as attachment number \ref{att:observatory-results-clippy-2021-04-24}. 
+
 
 
 ## Running benchmarks

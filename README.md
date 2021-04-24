@@ -10,9 +10,10 @@ Spelling is sadly not my strong suite, I'll go through the paper at the end to c
 
 ## TODOs (Those that are not included in the source files them self)
 * TODO xFrednet 2021-04-15: Maybe add an abstract section to the start.
+* TODO xFrednet 2021-04-24: Check that all writing is in formal English this means no abbreviations like "I'll"
 
 ## Building
-Use the following comments to build the actual document:
+Use the following commands to build the actual document:
 
 ```sh
 $ pdflatex --shell-escape main.tex

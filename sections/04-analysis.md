@@ -1,5 +1,7 @@
 # Analysis of benchmark results
 
+Give hosting background IE the website is deployed using GH Pages etc...
+
 ## Technical problems
 * Explaining the grade C from _Mozilla Observatory_
 * This should definitely include scientific sources to make this a valid paper

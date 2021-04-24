@@ -1,4 +1,4 @@
-# Requirements
+# Requirements \label{sec:requirements}
 The goal of this work is to improve the impression of Clippy's lint list. This section of the document will set a list of requirements to focus on in further research for this paper. Requirements are usually split up into the following two groups [@book.Sommerville2010, p. 83ff]:
 
 * *Functional requirements* describe direct functionality and behavior that a system should provide. They can also be defined as negations, stating that a certain behavior should not happen. These requirements are usually documented in an abstract way to enable system users to understand them.
@@ -14,11 +14,18 @@ These guidelines contain a _formal specification_ that states: _"The website mus
 
 The guidelines from the infrastructure team additionally contain some functional requirements that are not directly connected to the research question, they are also already fulfilled by the current setup. These are therefor included in the defined functional requirement. 
 
+## Performance
+The second major non-functional requirement this assignment will look at is performance.
+
+* Search performance
+* Load performance 
+
 <!-- 
 TODO xFrednet 2021-04-24: mention that GitHub pages are officially recommended as a hosting provider 
 https://forge.rust-lang.org/infra/guidelines/static-websites.html
 -->
 
+<!--
 ## Functional requirements
 * List formal requirements
 * Say: These formal requirements have also been defined as formal specifications:
@@ -32,6 +39,7 @@ https://forge.rust-lang.org/infra/guidelines/static-websites.html
 ## Specifications
 Or summary what ever works better
 
+-->
 
 <!--
 This section can be expanded if more text is needed.

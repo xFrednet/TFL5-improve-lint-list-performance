@@ -9,5 +9,9 @@ Give hosting background IE the website is deployed using GH Pages etc...
 * Explanation why the listed security risks are security risks
 
 ## Slow loading times (Browser debug tools)
+Mention works for:
+* rustfmt's website shows that fast loading times are possible -> analysis
+
+## Running benchmarks
 
 Hello

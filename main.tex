@@ -22,6 +22,7 @@
 \usepackage{tabularx}                                   % Advanced tables
 \usepackage{enumitem}                                   % customize itemize thingis
 \usepackage{hyperref}                                   % Links
+\usepackage{listings}
 \usepackage[footnotes,definitionLists,html,hashEnumerators,smartEllipses,hybrid,citations,pipeTables,tableCaptions]{markdown}
 \usepackage{float}                                      % For creating custom floats
 
@@ -43,6 +44,21 @@
 % Attachment float
 \newfloat{attachment}{H}{lop}
 \floatname{attachment}{Attachment}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Code
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\lstdefinestyle{lineBreakStyle}{
+    numbers=left,
+    stepnumber=1,
+    numbersep=8pt,
+    tabsize=3,
+    showspaces=false,
+    columns=fullflexible,
+    showstringspaces=false,
+    breaklines=true,
+    postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Document

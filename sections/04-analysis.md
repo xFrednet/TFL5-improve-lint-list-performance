@@ -1,4 +1,20 @@
 # Analysis of benchmark results
+This chapter will inspect each identified technical problem from section \ref{sec:measurement}. The inspection will first explain the technical background behind the problem and then identify the optimal configuration.
+
+## HTTP Strict Transport Security (HSTS)
+Ja ja toller text [@ietf.rfc6797]
+
+## X-Frame-Options (XFO)
+Some other explanation [@ietf.rfc7034]
+
+## X-Content-Type-Options
+https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options
+
+## Slow loading times
+
+Some form of art
+<!--
+## Technical background
 
 Give hosting background IE the website is deployed using GH Pages etc...
 
@@ -15,3 +31,5 @@ Mention works for:
 ## Running benchmarks
 
 Hello
+
+-->

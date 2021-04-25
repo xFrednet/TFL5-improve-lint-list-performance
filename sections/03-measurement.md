@@ -1,4 +1,4 @@
-# Fulfillment of requirements
+# Fulfillment of requirements \label{sec:measurement}
 This chapter will measure the current fulfillment for the previously in \ref{sec:requirements} defined requirements. These results will then be used to identify the key aspects that need improvement. Additionally they will be used for comparison when testing suggestions.
 
 ## Mozilla Observatory
@@ -18,6 +18,7 @@ The original scan output with all test results is included in attachment number 
 
 ## Initial page load time
 What is exactly being measured?
+
 * From opening the lint list
 * To seeing the list (Loading... is not valid)
 

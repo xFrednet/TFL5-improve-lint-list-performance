@@ -8,7 +8,7 @@ Ja ja toller text [@ietf.rfc6797]
 Some other explanation [@ietf.rfc7034]
 
 ## X-Content-Type-Options
-https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options
+What content to we want? All the content who do we trust: [@mozilla.developer.content-type-opt] and who was the weird inventor? Yes: [@microsoft.docs.ie8-security]
 
 ## Slow loading times
 

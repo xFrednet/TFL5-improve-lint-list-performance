@@ -1,6 +1,10 @@
 # Solutions for unfulfilled specifications
 
-* Reading GH page documentation
-* Maybe contacting support
+## HTTP Header fields
 
-Hello
+* All header fields can be looked at at once
+* Reading GH page documentation
+* Maybe cloud front (But GH still links the environments directly)
+
+## Slow loading times
+Well optimize with the use of static content

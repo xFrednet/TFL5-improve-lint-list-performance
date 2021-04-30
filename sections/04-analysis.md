@@ -6,7 +6,7 @@ The observatory scan focuses on HTTP header which are set by the server behind t
 * TODO xFrednet 2021-04-29: Move section about clippy hosting to specification
 * TODO xFrednet 2021-04-29: HTTP explanation/into header stuff
 
-## HTTP Strict Transport Security (HSTS) \label{sec:analysis.header.strict-transport-security.value}
+## HTTP Strict-Transport-Security (HSTS) \label{sec:analysis.header.strict-transport-security.value}
 HTTP Strict Transport Security (HSTS) is a optional HTTP header field that requests the client accessing the HTTP API to only use encrypted connection for further requests. The request to use and encrypted connection extends to all resources that are referenced by the requested result. It is therefor necessary that these resources also provide the option to connect via HTTPS [@ietf.rfc6797, p. 6ff].
 
 ### Risks
@@ -49,6 +49,8 @@ The header can only be set to `nosniff` which disables the sniffing feature. It 
 
 ### Importance for Clippy's lint list
 This field can actually be of high importance to the project. Clippy like all Rust projects has a review policy that only allows the merge of changes if they have been reviewed by a project member. This type of attack especially focusses on hiding the malicious code inside an image, this could therefor also easily be overlooked during the review process. Additionally due to the fact that the project maintainers mainly focus on Rust and not the website.
+
+This header requires that the `content-type` header is set correctly for content that is being delivered by the host. GitHub pages doesn't support the manual specification of the content type it instead uses a open source database to determine the correct MIME type based on the file extension [@github.docs.about-pages]. Clippy's lint list is composed out of a _html_ and a _json_ which both are delivered withe the correct content type as can be seen in attachment \ref{att:http-response-header-html} and \ref{att:http-response-header-json}. The nosniff option can therefor be enabled without side effects.
 
 ## Slow loading times
 

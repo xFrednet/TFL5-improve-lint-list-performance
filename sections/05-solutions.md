@@ -6,8 +6,12 @@ The analysis has shown that three HTTP headers have not been set and determined 
 
 \input{sections/05-solutions/01-header-values-table.tex}
 
-### GitHub pages configuration 
-Currently not possible. See https://stackoverflow.com/questions/14798589/github-pages-http-headers . Find and link the issue about the header values.
+### GitHub Pages configuration 
+The GitHub Pages documentation does not contain any information if and how HTTP header can be set. There has been requests to support user defined HTTP headers in several places by the GitHub community. All of them have concluded with the answer that this is currently not possible (\cite{github.no-set-header.ref1}, \cite{github.no-set-header.ref2}, \cite{github.no-set-header.ref3}).
+
+Searching in the documentation for the header functionality reveals that GutHub Pages provides an option called "Enforce HTTPS" [@github.docs.enforce-https]. This option can be enabled for each hosted site, under the condition that the original `github.io` domain is used [@github.docs.enforce-https]. Putting this setting to the test under a personal fork of the rust-clippy project reveals that the effect is limited. Requesting the project domain over HTTP results in a _301 Moved Permanently_ responds that forwards the browser to the same domain using HTTPS. The Strict-Transport-Security header which could enforce this behavior by the client is not set. The responds for the test page is included in attachment \ref{att:http-response-enforce-https}. This forward message only works for the root project url, other resources and direct HTML pages can still be loaded without an encrypted connection. Clippy uses paths to display version specific documentation. This setting is therefor not helpful in enforcing HTTPS security for Clippy.
+
+The documentation currently does not contain any information regarding the other header options.
 
 ### HTML meta tag
 These can also be set using the HTML meta tag. Better then nothing but still problematic as an attacker could remove them with a man in the middle attack

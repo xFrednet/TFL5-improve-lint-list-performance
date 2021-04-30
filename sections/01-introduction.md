@@ -15,7 +15,7 @@ The described problem in \ref{sec:into.problem} leads to the following research 
 ## Overall goal
 The primary goal of this paper is to review the previously mentioned problems and to find solutions for them.
 
-## Methodical
+## Approach
 The start of this paper will collect the formal and informal specifications that Clippy's lint list should optimally fulfill. The next part will analyze the current state of the website. This chapter will conclude with a list of aspects that should be improved as well as a selection which this research will focus on.
 
 The previous preparation leads to the solution finding process. This process will start with a technical explanation of the aspect to determine why this specification is important. The next step tries to find a solution for the found issues under the given circumstances. Additionally, this section will include a practical test if the suggested change would improved the focussed problem.

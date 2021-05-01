@@ -25,11 +25,12 @@ The meta tag can therefor be used to define Strict-Transport-Security and X-Cont
 * The X-Frame-Options header can not be set via a meta tag. This header is as discussed in \ref{sec:analysis.header.x-frame-options.value} the least important for now but still relevant when it comes to the Mozilla Observatory rating.
 * These meta tags are defined in HTML files, it will therefor not increase the Mozilla Observatory scoring and they have to be added to each project in each html file to ensure that they are enforces in the project.
 
-### Access over Proxy
-* Maybe cloud front (But GH still links the environments directly)
-* Possible, but extra service that has to be maintained. 
-* GH directly links to the github.io page therefor not all solved
-* Old references will continue to link to io domain
+### Content Delivery Network
+The Rust Infrastructure Team has noticed that some hosting providers have limitations when it comes to available configuration. The team has therefor setup a _CloudFront_ account for rust projects [@rust-forge.static-websites]. CloudFront is a _content delivery network_ (_CDN_) provided by Amazon. It can be used to deliver content on a global scale by acting as an intermediary agent. Each content request is wired over the network, the network then saves the data in caches to speedup future access [@amazon.cloundfront.readme]. Using a content delivery network enables the definition of custom behavior this can for example be used to define additional HTTP headers [@rust-forge.static-websites].
+
+CloudFront is already used to provide the website for the Rust project _rustup_ at [rustup.rs](https://rustup.rs/). That website archives the highest grade of A+ when evaluated with Mozilla Observatory. The rating is included in attachment number \ref{att:scan.rustup.rs.2021-05-01.json}. However, the distribution over CloudFront requires the use of a domain as the direct access to GitHub Pages can not be intercepted via a CDN.
+
+Using CloudFront, a different hosting or content provider would, as seen in the rustup website example, improve the website rating to a possible grade of A+ if configured correctly. A valid configuration is also provided in the Rust development documentation [@rust-forge.static-websites]. This is therefor a valid solution. However, using an additional new service like CloudFront would also add some additional complexity and use up resources of the Rust project in general. These are two disadvantages that have to be put into consideration when deciding for or against the usage.
 
 ## Slow loading times
 Well optimize with the use of static content

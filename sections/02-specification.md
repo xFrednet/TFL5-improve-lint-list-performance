@@ -14,11 +14,6 @@ These guidelines contain a _formal specification_ that states: _"The website mus
 
 The guidelines from the infrastructure team additionally contain some functional requirements that are not directly connected to the research question, they are also already fulfilled by the current setup. These are therefor included in the defined functional requirement. 
 
-## Performance
-The second major non-functional requirement this assignment will look at is performance.
-
-* Search performance
-* Load performance 
 
 <!-- 
 TODO xFrednet 2021-04-24: mention that GitHub pages are officially recommended as a hosting provider 

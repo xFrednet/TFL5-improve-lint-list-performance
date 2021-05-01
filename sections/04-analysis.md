@@ -52,9 +52,6 @@ This field can actually be of high importance to the project. Clippy like all Ru
 
 This header requires that the `content-type` header is set correctly for content that is being delivered by the host. GitHub pages doesn't support the manual specification of the content type it instead uses a open source database to determine the correct MIME type based on the file extension [@github.docs.about-pages]. Clippy's lint list is composed out of a _html_ and a _json_ which both are delivered withe the correct content type as can be seen in attachment \ref{att:http-response-header-html} and \ref{att:http-response-header-json}. The nosniff option can therefor be enabled without side effects.
 
-## Slow loading times
-
-Some form of art
 <!--
 ## Technical background
 

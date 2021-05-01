@@ -1,4 +1,4 @@
-# Solutions for unfulfilled specifications
+# Solutions for unfulfilled specifications \label{sec:solutions}
 The analysis has shown that the aspects to improve can be split into two parts. First the addition of HTTP headers for security and secondly the optimization of the website content for faster loading times. These two will be investigated individually.
 
 ## HTTP header fields

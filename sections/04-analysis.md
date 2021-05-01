@@ -1,4 +1,4 @@
-# Analysis of benchmark results
+# Analysis of benchmark results \label{sec:analysis}
 This chapter will inspect each identified technical problem from section \ref{sec:measurement}. The inspection will first explain the technical background behind the problem and then identify the optimal configuration.
 
 The observatory scan focuses on HTTP header which are set by the server behind the domain. The scan was therefor conducted for the domain `rust-lang.github.io`. Clippy's lint list is indirectly included in this result as well as documentation from repositories by the _Rust Organization_. Further investigation will continue to focus on the context of Clippy's lint list however improvements to the server would directly improve other websites.

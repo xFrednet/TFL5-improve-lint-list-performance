@@ -1,29 +1,26 @@
-# Analysis of benchmark results \label{sec:analysis}
-This chapter will inspect each identified technical problem from section \ref{sec:measurement}. The inspection will first explain the technical background behind the problem and then identify the optimal configuration.
+# Analysis of missing response headers \label{sec:analysis}
+<!-- Reviewed: 1x rewritten -->
+In \label{sec:measurement} it was determined that Clippy's lint list currently misses three HTTP response header fields to fulfill all requirements that have been defined in \label{sec:requirements}. This chapter will inspect each of this fields individually by explaining the technical background, evaluating the relevance for Clippy's use case and then suggest what each option should optimally be set to.
 
-The observatory scan focuses on HTTP header which are set by the server behind the domain. The scan was therefor conducted for the domain `rust-lang.github.io`. Clippy's lint list is indirectly included in this result as well as documentation from repositories by the _Rust Organization_. Further investigation will continue to focus on the context of Clippy's lint list however improvements to the server would directly improve other websites.
+The observatory scan focuses on HTTP header which are set by the server behind the domain. The scan was therefor conducted for the domain `rust-lang.github.io`. Clippy's lint list is indirectly included in this result as well as documentation from other repositories inside the rust-lang organization. Further investigation will continue to focus on the context of Clippy's lint list however changes to the server could therefor also indirectly improve other sites.
 
-* TODO xFrednet 2021-04-29: Move section about clippy hosting to specification
-* TODO xFrednet 2021-04-29: HTTP explanation/into header stuff
+## HTTP Strict-Transport-Security
+<!-- Reviewed: 1x rewritten -->
+_Strict Transport Security_ is a optional HTTP header field that instructs the client to only use encrypted connection for further requests. The instruction extends to all resources that are referenced by the requested result. It is therefor necessary that these resources hosts provide the option to download there resources over HTTPS [@ietf.rfc6797, p. 6ff].
 
-## HTTP Strict-Transport-Security (HSTS) \label{sec:analysis.header.strict-transport-security.value}
-HTTP Strict Transport Security (HSTS) is a optional HTTP header field that requests the client accessing the HTTP API to only use encrypted connection for further requests. The request to use and encrypted connection extends to all resources that are referenced by the requested result. It is therefor necessary that these resources also provide the option to connect via HTTPS [@ietf.rfc6797, p. 6ff].
-
-### Risks
-The specification references three threads that can be prevented using this header [@ietf.rfc6797, p. 6ff]:
-
-1. Using an unencryped connection allows attackers to eavesdrop on the exchanged data. This is a _passive network attack_ and can be used to collect personal information, passwords or browsing habits.
-2. A HTTPS connection requires a certificate that has to be signed by a certification authority. This certificate intern lists the owner or organization. This can be used to validate that the displayed content really originates from the expected source and with that prevent attackers from creating a fake website copy to steal otherwise secure information.
-3. Forcing the use of HTTPS additionally ensures that mistakes like referencing ressources via HTTP links will be corrected by the requesting client
+### Preventable risks
+<!-- Reviewed: 1x rewritten -->
+This header protects the user from _passive network attacks_ where an attacker eavesdrop on the exchanged data. This can be used to collect personal information, passwords or browsing habits. A connection that is not encrypted is also vulnerable to _active network attack_. With this an attacker can impersonate the actual site or deliver a modified version all together. An encrypted connection on the other hand can be used to request a certificate and validate that the content is delivered from the expected source. An additional advantage of this header is that it prevents accidental use of unencrypted connections by developers [@ietf.rfc6797, p. 6ff].
 
 ### Importance for Clippy
-Clippy's lint lint only displays publicly available information about lints in a easy accessible and searchable way. A passive network attack could therefor not collect any secret of personal information about the user. Except the fact that they visited the domain at all. However, this would however also be possible with the header as the connected IP is not effected by it. This also extends to the third thread of accidentally not requesting unencrypted resources, this can currently still happen but would not be detrimental.
-
-The second thread of modification of the website is the relevant thread in this case. An attacker could for instance inject a donation button as several developers have expressed interest to donate to the Rust Foundation itself. This button would then forward the user to another page of the attacker to donate.
+<!-- Reviewed: 1x rewritten -->
+Clippy's lint lint only displays publicly available information about lints in a easy accessible and searchable way. A passive network attack could therefor not collect any secret or personal information about the user. Except the fact that they visited the domain at all. However, this would still be possible with the header as the connected IP is not effected by it. The biggest thread could actually be an active network attack that injects a donation button into the website as several developers have expressed interest to donate to the Rust Foundation in general. This button would then forward the user to another page of the attacker to donate. However, the chance of this is probably negotiable due to the low traffic that Clippy's lint list actually receives. Such an attack would therefor be targeted an a specific user.
 
 With all of this being said it has to be noted that all references to the website already include `https` at the start and a user has to deliberately enter the domain with http in front. Most browsers will then still recommend to use the encrypted connection or at least add a _not encrypted_ notice next to the URL. All of this results in a very low risk. The header should still be set if the hosting provider provides a simple setting for this. Also due to the fact that the targeted A+ rating would require this field.
 
-<!-- TODO xFrednet 2021-04-27: Define which value the header should be set to -->
+### Configuration \label{sec:analysis.header.strict-transport-security.value}
+<!-- Reviewed: 1x rewritten -->
+The header can take up to three arguments that configure which domains are included in this instruction and a duration for how long an encrypted connection should be forced [@ietf.rfc6797, p. 14ff]. Both Mozilla and the Rust development documentation recommends to define a duration of two years in the header field. This is equivalent to the value `"max-age=63072000"` (\cite{mozilla.infosec.recommendations}, cite{rust-forge.static-websites}). This is therefor also the recommended value for Clippy's lint list.
 
 ## X-Frame-Options (XFO) \label{sec:analysis.header.x-frame-options.value}
 This header was initially implemented by browsers as a non-standard HTTP header field as a new security measure to prevent the thread clickjacking. In 2013 the header was formalized by the _Internet Engineering Task Force_ (_IETF_) in RFC7014. Clickjacking describes is the act of hijacking clicks of the user, this can be done by embedding a website that should be hijacks as a frame and than getting the user to unknowingly interact with that site. The XFO header field allows a host to specify that delivered content must not be displayed in a frame [@ietf.rfc7034, p. 3].

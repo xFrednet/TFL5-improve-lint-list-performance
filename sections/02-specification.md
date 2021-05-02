@@ -1,6 +1,6 @@
 # Clippy's lint list
 <!-- Reviewed: 1x newly written. -->
-The chapter \ref{sec:into} gave an introduction of Clippy and the lint list which is being maintained by the contributors of the rust-clippy project. This section will provide relevant background information about the website and it hosting. It will then summarize the relevant requirements and conclude with an overview which aspects will be further investigated.
+Chapter \ref{sec:into} gives an introduction of Clippy and the lint list which is being maintained by the contributors of the rust-clippy project. This section will provide relevant background information about the website and it hosting. It will then summarize the relevant requirements and conclude with an overview which aspects will be further investigated.
 
 ## Hosting
 <!-- Reviewed: 1x newly written. -->
@@ -9,42 +9,27 @@ Clippy's lint list is a static website centered around a HTML file which display
 The rust-clippy project has selected _GitHub Pages_ as a hosting provider. GitHub Pages provides a simple way to host project websites directly from the repository itself. GitHub additionally provides a project domain which is made up of the name of the organization or username and a path to the project [@github.docs.about-pages]. For Clippy this domain is \texttt{\url{https://rust-lang.github.io/rust-clippy/}}. The use of this hosting adds no additional cost if the user or organization has a payed product plan, like _GitHub Pro_ or _GitHub Team_ [@github.docs.gh-products]. The later applies to the Rust Organization. GitHub Pages has soft limits when it comes to bandwidth usage, page site and amount of page updates per hour. The documentation also states that the hosting should not be used directly for commercial purposes or sensitive and personal data [@github.docs.about-pages].
 
 ## Requirements \label{sec:requirements}
-The goal of this work is to improve the impression of Clippy's lint list. This section of the document will set a list of requirements to focus on in further research for this paper. Requirements are usually split up into the following two groups [@book.Sommerville2010, p. 83ff]:
+<!-- Reviewed: 1x rewritten -->
+The research question specified in \ref{sec:into.question} focusses on requirements that are put on the lint list as a static website that is provided as a part of the Rust community. This part of the paper outlines these requirements. 
 
-* *Functional requirements* describe direct functionality and behavior that a system should provide. They can also be defined as negations, stating that a certain behavior should not happen. These requirements are usually documented in an abstract way to enable system users to understand them.
-* *Non-functional requirements* are focussed on the characteristics of the system itself, an example might be the requirement to have a reliable and maintainable system. These requirements can include constraints that the system might have to take care of.
+### Website functionality
+<!-- Reviewed: 1x rewritten -->
+The website has _functional requirements_ which describe direct functionality and behavior that the website should provide [@book.Sommerville2010, p. 83ff]. An example is the implemented search and filter feature. These requirements will not be listed as part of this work as they are not necessarily needed to fulfil the technical requirements defined in the Rust development documentation. However, it is noteworthy that this functionality should not be impacted by suggestions in this paper. This paragraph will be referenced again if a suggested solution could impact them. A list of requested and implemented functionality can be retrieved from the rust-clippy issue tracker.
 
-### Implemented functionality
-The topic of this assignment focusses on the perception and impression of Clippy's lint list as an entire system. The research question therefor puts a focus on non-functional requirements. The website itself is based on functional requirements and these should remain fulfilled even after the suggested changes. It is therefor important to note them in some way or form while not taking focus of the key point of this paper. All requirements that have been implemented previously will therefor be summarized in the following functional requirement: _The functionality of the website should not be impacted by the implementation of new measures to improve the impression or usage._ This requirement covers functionality like the search feature, filter options and theming. The implementation of all of these has been completed at the point of writing this. A more extensive specification of the underlying requirements can be retrieved from the rust-clippy issue tracker.
+### Requirements by the Rust Infrastructure Team
+<!-- Reviewed: 1x rewritten -->
+The Rust Infrastructure team has created a set of guidelines that static websites affiliated with the Rust project should fulfill to be hosted and managed by them. Clippy is an official Rust project and the website itself presents static content, the guidelines therefor apply to the website. The requirements are as follows [@rust-forge.static-websites]:
 
-### Non-functional requirements (Maybe: Requirements by the Infra team)
-The Rust Infrastructure team has created a set of guidelines that static websites affiliated with the Rust project should fulfill. Clippy is an official Rust project and the website itself presents static content, the guidelines therefor apply to the website. 
+* "The website must be managed by a Rust team, or be officially affiliated with the project."
+    * This point excludes community projects due to finite resources of the infrastructure team.
+* "The website’s content and build tooling must be hosted on a GitHub repository in either the [rust-lang](https://github.com/rust-lang) or [rust-lang-nursery](https://github.com/rust-lang-nursery) organizations."
+    * The teams wants to be able to rebuild the website at any time. They therefor require it to be hosted in a GitHub repository that is also managed by them.
+* "The website must be built and deployed with a CI service."
+* "The website must reach an A+ grade on the [Mozilla Observatory](https://observatory.mozilla.org/)."
+    * This requirement focusses on user security as it ensures that multiple security features are enabled for the website. The referenced tool analyzes security features than can toggled through header fields in the HTTP response by the hosting provider. The target grade indicates that the website is configured correctly. 
+* "The website must be hosted on platforms vetted by the infra team."
+    * The documentation recommends the usage of _GitHub Pages_ or _Amazon AWS_ in combination with _CloudFront_ as a _content delivery network_. Other providers can be suggested and requested as long as they are deemed to be secure and reliable.
 
-These guidelines contain a _formal specification_ that states: _"The website must reach an A+ grade on the Mozilla Observatory."_ [@rust-forge.static-websites]. This specification is based on the requirement of security. The A+ grade ensures that all important headers have been set and that enhanced users privacy features should be enabled by the browser [@rust-forge.static-websites]. A secure website contributes to a trustful relation ship between the user and Clippy's lint list. It additionally improves the ranking in most search engines and therefor helps users to faster find the documentation they require. <!-- TODO xFrednet 2021--04-24: quelle? -->
-
-The guidelines from the infrastructure team additionally contain some functional requirements that are not directly connected to the research question, they are also already fulfilled by the current setup. These are therefor included in the defined functional requirement. 
-
-
-<!-- 
-TODO xFrednet 2021-04-24: mention that GitHub pages are officially recommended as a hosting provider 
-https://forge.rust-lang.org/infra/guidelines/static-websites.html
--->
-
-<!--
-## Functional requirements
-* List formal requirements
-* Say: These formal requirements have also been defined as formal specifications:
-* *Formal specifications*: Specifications that are unambiguous and formally defined. Formal specifications have the advantage that the precise description and limited scope reduce misunderstandings. These specifications are usually a translation of user requirements which are often expressed in natural language. This translation forces a detailed analysis of the requirements which often catches errors in them, that were previously hidden by ambiguous language. The fulfillment of these specifications can also be verified using manual or tool-supported methods [@book.Sommerville2010, p. 334].
-    * Technical security measured by Mozilla Observatory
-
-## Non-functional requirements
-* We need SPEED
-    * Why are these informal? This paper want's to focus and work on the technical background not on fining the most optimal solution
-
-## Specifications
-Or summary what ever works better
-
--->
 
 <!--
 This section can be expanded if more text is needed.

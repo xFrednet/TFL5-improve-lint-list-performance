@@ -11,7 +11,7 @@ Offering an online documentation gives a central point of reference that can be 
 
 A secondary problem is the initial load time of the lint list which is noticeably slower than most other websites in the Rust eco system. This aspect also influences the user experience and search engine rating. However, this will not be evaluated as part of this paper due to the fact that there has been some recent discussions on the topic inside the community to change the display of content completely which would void all research on this topic.
 
-## Research question
+## Research question \label{sec:into.question}
 <!-- Reviewed: 1x rewritten -->
 The described problem in \ref{sec:into.problem} leads to the following research question: _Does Clippy's lint list fulfil all requirements and if not how can this be improved?_
 
@@ -21,6 +21,7 @@ The primary goal of this paper is to review which requirements are currently not
 
 ## Approach
 <!-- Reviewed: 1x rewritten -->
+<!-- TODO xFrednet 2021-05-02: Maybe rewrite to present -->
 The start of this paper will provide some context about the Clippy's lint list and the current hosting provider. It will then collect the requirements defined for that static websites, like Clippy's lint list, inside the Rust ecosystem.
 
 The next chapter will then measure the current fulfillment of these collected requirements to deduct which topics should be further investigated. The following section will analyze the measurements and explain the technical importance behind them as well as evaluate the importance for Clippy.

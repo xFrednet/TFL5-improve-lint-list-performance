@@ -1,13 +1,17 @@
-# Requirements \label{sec:requirements}
+# Clippy's lint list
+
+## Hosting
+
+## Requirements \label{sec:requirements}
 The goal of this work is to improve the impression of Clippy's lint list. This section of the document will set a list of requirements to focus on in further research for this paper. Requirements are usually split up into the following two groups [@book.Sommerville2010, p. 83ff]:
 
 * *Functional requirements* describe direct functionality and behavior that a system should provide. They can also be defined as negations, stating that a certain behavior should not happen. These requirements are usually documented in an abstract way to enable system users to understand them.
 * *Non-functional requirements* are focussed on the characteristics of the system itself, an example might be the requirement to have a reliable and maintainable system. These requirements can include constraints that the system might have to take care of.
 
-## Implemented functionality
+### Implemented functionality
 The topic of this assignment focusses on the perception and impression of Clippy's lint list as an entire system. The research question therefor puts a focus on non-functional requirements. The website itself is based on functional requirements and these should remain fulfilled even after the suggested changes. It is therefor important to note them in some way or form while not taking focus of the key point of this paper. All requirements that have been implemented previously will therefor be summarized in the following functional requirement: _The functionality of the website should not be impacted by the implementation of new measures to improve the impression or usage._ This requirement covers functionality like the search feature, filter options and theming. The implementation of all of these has been completed at the point of writing this. A more extensive specification of the underlying requirements can be retrieved from the rust-clippy issue tracker.
 
-## Non-functional requirements (Maybe: Requirements by the Infra team)
+### Non-functional requirements (Maybe: Requirements by the Infra team)
 The Rust Infrastructure team has created a set of guidelines that static websites affiliated with the Rust project should fulfill. Clippy is an official Rust project and the website itself presents static content, the guidelines therefor apply to the website. 
 
 These guidelines contain a _formal specification_ that states: _"The website must reach an A+ grade on the Mozilla Observatory."_ [@rust-forge.static-websites]. This specification is based on the requirement of security. The A+ grade ensures that all important headers have been set and that enhanced users privacy features should be enabled by the browser [@rust-forge.static-websites]. A secure website contributes to a trustful relation ship between the user and Clippy's lint list. It additionally improves the ranking in most search engines and therefor helps users to faster find the documentation they require. <!-- TODO xFrednet 2021--04-24: quelle? -->

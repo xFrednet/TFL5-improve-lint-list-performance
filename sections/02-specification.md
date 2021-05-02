@@ -1,6 +1,12 @@
 # Clippy's lint list
+<!-- Reviewed: 1x newly written. -->
+The chapter \ref{sec:into} gave an introduction of Clippy and the lint list which is being maintained by the contributors of the rust-clippy project. This section will provide relevant background information about the website and it hosting. It will then summarize the relevant requirements and conclude with an overview which aspects will be further investigated.
 
 ## Hosting
+<!-- Reviewed: 1x newly written. -->
+Clippy's lint list is a static website centered around a HTML file which displays a json document with lint documentation and metadata. It additionally references resources by other projects but these two are the only once that are directly hosted in project. The website is automatically updated and deployed with every merged pull request.
+
+The rust-clippy project has selected _GitHub Pages_ as a hosting provider. GitHub Pages provides a simple way to host project websites directly from the repository itself. GitHub additionally provides a project domain which is made up of the name of the organization or username and a path to the project [@github.docs.about-pages]. For Clippy this domain is \texttt{\url{https://rust-lang.github.io/rust-clippy/}}. The use of this hosting adds no additional cost if the user or organization has a payed product plan, like _GitHub Pro_ or _GitHub Team_ [@github.docs.gh-products]. The later applies to the Rust Organization. GitHub Pages has soft limits when it comes to bandwidth usage, page site and amount of page updates per hour. The documentation also states that the hosting should not be used directly for commercial purposes or sensitive and personal data [@github.docs.about-pages].
 
 ## Requirements \label{sec:requirements}
 The goal of this work is to improve the impression of Clippy's lint list. This section of the document will set a list of requirements to focus on in further research for this paper. Requirements are usually split up into the following two groups [@book.Sommerville2010, p. 83ff]:

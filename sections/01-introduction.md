@@ -1,4 +1,4 @@
-# Introduction
+# Introduction \label{sec:into}
 Rust is a programming language that focusses on performance, security an reliability. The compiler is open source and dual-licensed under the Apache 2.0 and MIT license [@github.rust.license]. Rust 1.0 the first stable version was announced in May 2015 [@rust-blog.rust1-0]. This release also marked the start of the _commitment to stability_ which promises stability on future Rust stable releases [@rust-blog.stability-promise]. This new commitment also introduced a 6-week release cycle as well as development channels for language users and early adapters [@rust-blog.stability-promise]. The latest stable compiler version 1.51.0 has been released on 25 of March 2021 [@rust-blog.rust1-51]. Developers and teams within the project put high effort into open communication. This focussed is formalized in the official _Code of conduct_ [@rust-lang.coc]. The language with its connected tools has attracted over 5900 individual contributes as of writing this [@rust-lang.thanks].
 
 The Rust project consists out of several tools besides the compiler itself. These tools are seen as a vital part in automating parts of the development process and collaboration among teams. _Clippy_ is the official linter for Rust and is being developed in the _rust-clippy_ repository. The linter contains over 450 lints which span from complexity and style lints over to restriction lints which might be required by certificates [@github.clippy.readme]. Clippy is written in Rust itself and interfaces with the compiler directly. This direct connection enables the use of the existing lexer, parser and connected diagnostic tools and ensures that the project stays up to date with the latest compiler changes. Since 2018 Clippy is distributed as a component of the Rust installation itself [@github.rustup.1461].
@@ -12,8 +12,8 @@ Offering an online documentation gives a central point of reference that can be 
 A secondary problem is the initial load time of the lint list which is noticeably slower than most other websites in the Rust eco system. This aspect also influences the user experience and search engine rating. However, this will not be evaluated as part of this paper due to the fact that there has been some recent discussions on the topic inside the community to change the display of content completely which would void all research on this topic.
 
 ## Research question
-<!-- TODO xFrednet 2021-05-02: Rewrite the question to fit the whole requirement focus shift thingy -->
-The described problem in \ref{sec:into.problem} leads to the following research question: _How can the internet presentation of the lint list for the rust-clippy project be improved?_
+<!-- Reviewed: 1x rewritten -->
+The described problem in \ref{sec:into.problem} leads to the following research question: _Does Clippy's lint list fulfil all requirements and if not how can this be improved?_
 
 ## Goal
 <!-- Reviewed: 1x rewritten -->

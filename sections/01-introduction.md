@@ -13,7 +13,7 @@ A secondary problem is the initial load time of the lint list which is noticeabl
 
 ## Research question \label{sec:into.question}
 <!-- Reviewed: 1x rewritten -->
-The described problem in \ref{sec:into.problem} leads to the following research question: _Does Clippy's lint list fulfil all requirements and if not how can this be improved?_
+The described problem in \ref{sec:into.problem} leads to the following research question: _Does Clippy's lint list fulfill all requirements and if not how can this be improved?_
 
 ## Goal
 <!-- Reviewed: 1x rewritten -->

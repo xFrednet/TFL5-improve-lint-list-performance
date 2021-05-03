@@ -1,4 +1,4 @@
-# Clippy's lint list
+# Clippy's lint list \label{sec:clippys-lint-list}
 <!-- Reviewed: 1x newly written. -->
 Chapter \ref{sec:into} gives an introduction of Clippy and the lint list which is being maintained by the contributors of the rust-clippy project. This section will provide relevant background information about the website and it hosting. It will then summarize the relevant requirements and conclude with an overview which aspects will be further investigated.
 

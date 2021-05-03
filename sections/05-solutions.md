@@ -9,7 +9,7 @@ Searching in the documentation for the header functionality reveals that GutHub 
 
 The GutHub Pages documentation currently does not contain any information regarding the other header options.
 
-## HTML meta tag
+## HTML meta tag \label{sec:solutions.meta-tag}
 A discussion on the topic of setting HTTP header fields in GutHub Pages included suggestions to use a meta tag inside the main html file header [@github.no-set-header.ref1]. The meta tag is part of the living HTML standard defined by the _Web Hypertext Application Technology Working Group_ (_WHATWG_). It can be used to add supplementary information for the client. The tag can contain a `http-equiv` attribute with a linked `content` attribute that can define values that would usually be set in the HTTP response header. The standard currently defines a set of fields that can be set with the meta attribute. The missing fields defined in table \ref{tab:solution.http-header.target-values} are not listed in the living standard [@whatwg.html-living-standard]. However, clients can still deviate from this standard or support additional functionality that has not yet been specified. 
 
 Putting the meta tag to the test reveals that both Firefox and Chromium accept values for `Strict-Transport-Security` and `X-Content-Type-Options`. Assigning a value to `X-Frame-Options` produces a warning in the Chromium console with the message that this option is not supported in the meta tag and should be set as a HTTP response header. After setting the meta tags both browsers take care to enforce HTTPS connections for all requested resources. Accessing a HTTP connection produces in both cases an error message indicating that mixed content is not allowed and the request has been blocked.

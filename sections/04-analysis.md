@@ -26,9 +26,9 @@ The `X-Frame-Options` header was initially accepted by some browsers as an opt-i
 
 HTML supports frame elements which allow a website to embed an external website into the users view. This can be used to add a complimentary view that is externally hosted or provides additional information. The parent document can for security reasons not directly interact with the framed contend. Clickhijacking describes an attack where a frame is used to make a user unknowingly interact with framed content trough clicks as these will be accepted by the frame as interactions. This interaction can then be used to trigger some behavior or gain access in a different way. Browsers have added support for the `X-Frame-Options` header which enables content provider to deny the display of content in frames [@ietf.rfc7034, p. 3ff]. Therefor preventing clickhijacking all together.
 
-### Importance for Clippy
+### Importance for Clippy \label{sec:analysis.header.x-frame-options.importance}
 <!-- Reviewed: 1x slight adjustments -->
-Clickhijacking is used to make a victim interacts with a different website to use the privileges or data that the user has saved on that site. Clippy's lint list provides the same data to everyone and the only user specific data is the selected color theme. An attacker has therefor nothing to gain with this attack. Adding the header would actually reduce flexibility from external users to embed the lint list in their own interface, even if the project at this point doesn't know of a website doing so.
+Clickhijacking is used to make a victim interacts with a different website to use the privileges or data that the user has saved on that site. Clippy's lint list provides the same data to everyone and the only user specific data is the selected color theme. An attacker has therefor nothing to gain with this attack. Adding the header would actually reduce flexibility from external users to embed the lint list in their own interface, even if the project at this point does not know of a website doing so.
 
 However, Clippy's lint list is just one site that's hosted under the domain, it should be investigated if other sites contain sensitive data that would require the header. This paper will still look into setting the header as it is required so receive a A+ grade by Mozilla Observatory.
 

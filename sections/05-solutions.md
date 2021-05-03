@@ -1,11 +1,6 @@
 # Setting HTTP header fields \label{sec:solutions}
-The analysis has shown that the aspects to improve can be split into two parts. First the addition of HTTP headers for security and secondly the optimization of the website content for faster loading times. These two will be investigated individually.
-
-The measurement in chapter \ref{sec:measurement} has shown that three HTTP headers have not been set. The section \ref{sec:analysis} determined that they should be configured as defined in Table \ref{tab:solution.http-header.target-values}.
-
-\input{sections/05-solutions/01-header-values-table.tex}
-
-This chapter will investigate how these values can be set for Clippy's lint list.
+<!-- Reviewed: 1x rewritten -->
+Chapter \ref{sec:measurement} has determined that three HTTP response headers would need to be set to fulfill all requirements from \ref{sec:requirements}. Section \ref{sec:analysis} has analyzed each field and suggested a value for each of them. The results are displayed in table \ref{tab:solution.http-header.target-values}. This chapter will now investigates how these values can be set for Clippy's lint list.
 
 ## GitHub Pages configuration 
 The GitHub Pages documentation does not contain any information if and how HTTP header can be set. There has been requests to support user defined HTTP headers in several places by the GitHub community. All of them have concluded with the answer that this is currently not possible (\cite{github.no-set-header.ref1}, \cite{github.no-set-header.ref2}, \cite{github.no-set-header.ref3}).

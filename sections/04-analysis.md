@@ -1,6 +1,6 @@
 # Analysis of missing response headers \label{sec:analysis}
 <!-- Reviewed: 1x rewritten -->
-In \label{sec:measurement} it was determined that Clippy's lint list currently misses three HTTP response header fields to fulfill all requirements that have been defined in \label{sec:requirements}. This chapter will inspect each of this fields individually by explaining the technical background, evaluating the relevance for Clippy's use case and then suggest what each option should optimally be set to.
+In \ref{sec:measurement} it was determined that Clippy's lint list currently misses three HTTP response header fields to fulfill all requirements that have been defined in \ref{sec:requirements}. This chapter will inspect each of this fields individually by explaining the technical background, evaluating the relevance for Clippy's use case and then suggest what each option should optimally be set to.
 
 The observatory scan focuses on HTTP header which are set by the server behind the domain. The scan was therefor conducted for the domain `rust-lang.github.io`. Clippy's lint list is indirectly included in this result as well as documentation from other repositories inside the rust-lang organization. Further investigation will continue to focus on the context of Clippy's lint list however changes to the server could therefor also indirectly improve other sites.
 
@@ -42,21 +42,27 @@ The option can be set to three mutually exclusive values [@ietf.rfc7034, p. 4]:
 
 The Rust development documentation provides an example configuration that uses `DENY` [@rust-forge.static-websites]. `DENY` is the most restrictive setting but can easily be adapted to allow framing if requested. The author for this reason suggest the initial value of `DENY` as well.
 
-## X-Content-Type-Options \label{sec:analysis.header.x-content-type-options.value}
-In 2008 the _X-Content-Type-Options_ HTTP header was initially implemented by Microsoft in Internet Explorer 8 to prevent attacks that abuse _MIME-sniffing_ for attacks [@microsoft.docs.ie8-security-4]. HTTP includes a content-type header that indicate the type of content that is being delivered, these types are called _MIME types_. Most browsers have a mechanic called _MIME-sniffing_ to determine what MIME type the received resource is in. This functionality is used for backwards compatibility with for example legacy servers that serve all content with the `text/plain` content type. MIME-Sniffing can determine that received data is in a different data type than specified and display it in the determined way. This would for instance render a HTML document that is send with the `text/plain` content-type if the text contains HTML elements [@microsoft.docs.ie8-security-5].
+## X-Content-Type-Options
+<!-- Reviewed: 1x slight adjustments -->
+In 2008 the `X-Content-Type-Options` HTTP header was initially implemented by Microsoft in Internet Explorer 8 to prevent attacks that abuse _MIME-sniffing_ [@microsoft.docs.ie8-security-4]. HTTP response header include a `content-type` field that indicate the type of content that is being delivered, these types are called _MIME types_. Most browsers have a mechanic called _MIME-sniffing_ to determine what MIME type the received resource is in. This functionality is used for backwards compatibility with for legacy servers that serve all content with the `text/plain` content type. MIME-Sniffing can determine that received data is in a different data type than specified and display it in the newly determined way. This would for instance render a HTML document that is send with the `text/plain` content type if the text contains HTML elements [@microsoft.docs.ie8-security-5].
 
-The feature has however introduced some security concerns for content hosts. Attackers could create content like images that contain HTML text with scrips. The sniffing functionality could then falsely determine during the inspection that the received resource is a HTML document and then execute the contained script instead of showing an image [@microsoft.docs.ie8-security-5]. This lead to the introduction of the X-Content-Type-Options field that can be used to prevent such content sniffing [@microsoft.docs.ie8-security-4].
-
-The header can only be set to `nosniff` which disables the sniffing feature. It is supported by all major browsers [@mozilla.developer.content-type-opt].
+The feature has however introduced some security concerns for content hosts. Attackers could create content, like images, that contain HTML text with scrips. The sniffing functionality could then falsely determine during the inspection that the received resource is a HTML document and execute the contained script instead of showing an image [@microsoft.docs.ie8-security-5]. This lead to the introduction of the `X-Content-Type-Options` field that can be used disable sniffing and therefor enforce the use of the specified content type [@microsoft.docs.ie8-security-4].
 
 ### Importance for Clippy's lint list
-This field can actually be of high importance to the project. Clippy like all Rust projects has a review policy that only allows the merge of changes if they have been reviewed by a project member. This type of attack especially focusses on hiding the malicious code inside an image, this could therefor also easily be overlooked during the review process. Additionally due to the fact that the project maintainers mainly focus on Rust and not the website.
+<!-- Reviewed: 1x slight adjustments -->
+This field can actually be of high importance to the project. Clippy, like all Rust projects, has a review policy that only allows the merge of changes if they have been reviewed by a project member. This type of attack especially focusses on hiding the malicious code inside other resources, like an image. This could therefor also easily be overlooked during the review process. Additionally due to the fact that the project maintainers mainly focus on Rust and not the website.
 
-This header requires that the `content-type` header is set correctly for content that is being delivered by the host. GitHub pages doesn't support the manual specification of the content type it instead uses a open source database to determine the correct MIME type based on the file extension [@github.docs.about-pages]. Clippy's lint list is composed out of a _html_ and a _json_ which both are delivered withe the correct content type as can be seen in attachment \ref{att:http-response-header-html} and \ref{att:http-response-header-json}. The nosniff option can therefor be enabled without side effects.
+This header requires that the `content-type` header is set correctly for content that is being delivered by the host. GitHub Pages doesn't support the manual specification of the content type. It instead uses a open source database to determine the correct MIME type based on the file extension [@github.docs.about-pages]. Clippy's lint list is composed out of a _html_ and a _json_ file which both are delivered with the the correct content type as can be seen in attachment \ref{att:http-response-header-html} and \ref{att:http-response-header-json}. The security measure option can therefor be enabled without side effects.
+
+### Configuration \label{sec:analysis.header.x-content-type-options.value}
+<!-- Reviewed: 1x newly written -->
+The `X-Content-Type-Options` response header can only be set to `nosniff` which disables the sniffing feature altogether. This option is also supported by all major browsers [@mozilla.developer.content-type-opt]. This will therefor also be the suggested value to the field.
 
 ## Summary
+<!-- Reviewed: 1x newly written -->
+This chapter reviewed the three missing header fields that are required to gain a A+ grade by Mozilla Observatory. It was chosen a suggested value for each filed that will be used for further reference in this paper. These values where chosen based on the technical background and importance for Clippy. The results are summarizes in table \ref{tab:solution.http-header.target-values}.
 
-Drag Table 2 here about what the fields should be set to
+\input{sections/04-analysis/01-header-values-table.tex}
 
 <!--
 ## Technical background

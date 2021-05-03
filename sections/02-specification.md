@@ -1,16 +1,16 @@
 # Clippy's lint list \label{sec:clippys-lint-list}
 <!-- Reviewed: 1x newly written. -->
-Chapter \ref{sec:into} gives an introduction of Clippy and the lint list which is being maintained by the contributors of the rust-clippy project. This section will provide relevant background information about the website and it hosting. It will then summarize the relevant requirements and conclude with an overview which aspects will be further investigated.
+Chapter \ref{sec:into} gives an introduction of Clippy and the lint list which is being maintained by the contributors of the rust-clippy project. This section will provide relevant background information about the website and the hosting provider. It will then summarize the relevant requirements and conclude with an overview which aspects will be further investigated.
 
 ## Hosting
 <!-- Reviewed: 1x newly written. -->
-Clippy's lint list is a static website centered around a HTML file which displays a json document with lint documentation and metadata. It additionally references resources by other projects but these two are the only once that are directly hosted in project. The website is automatically updated and deployed with every merged pull request.
+Clippy's lint list is a static website centered around an HTML file which displays a JSON document with lint documentation and metadata. It additionally references resources by other projects, but these two are the only once that are directly hosted as part of the project. The website is automatically updated and deployed with every merged pull request.
 
-The rust-clippy project has selected _GitHub Pages_ as a hosting provider. GitHub Pages provides a simple way to host project websites directly from the repository itself. GitHub additionally provides a project domain which is made up of the name of the organization or username and a path to the project [@github.docs.about-pages]. For Clippy this domain is \texttt{\url{https://rust-lang.github.io/rust-clippy/}}. The use of this hosting adds no additional cost if the user or organization has a payed product plan, like _GitHub Pro_ or _GitHub Team_ [@github.docs.gh-products]. The later applies to the Rust Organization. GitHub Pages has soft limits when it comes to bandwidth usage, page site and amount of page updates per hour. The documentation also states that the hosting should not be used directly for commercial purposes or sensitive and personal data [@github.docs.about-pages].
+The rust-clippy project has selected _GitHub Pages_ as a hosting provider. GitHub Pages provides a simple way to host project websites directly from the repository itself. GitHub additionally provides a project domain which is made up of the name of the organization or username and a path to the project [@github.docs.about-pages]. For Clippy this domain is \texttt{\url{https://rust-lang.github.io/rust-clippy/}}. The use of this hosting adds no additional cost if the user or organization has a paid product plan, like _GitHub Pro_ or _GitHub Team_ [@github.docs.gh-products]. The latter applies to the Rust Organization. GitHub Pages has soft limits when it comes to bandwidth usage, page site and amount of page updates per hour. The documentation also states that the hosting should not be used directly for commercial purposes or sensitive and personal data [@github.docs.about-pages].
 
 ## Requirements \label{sec:requirements}
 <!-- Reviewed: 1x rewritten -->
-The research question specified in \ref{sec:into.question} focusses on requirements that are put on the lint list as a static website that is provided as a part of the Rust community. This part of the paper outlines these requirements. 
+The research question specified in \ref{sec:into.question} focuses on requirements that are put on the lint list as a static website that is provided as a part of the Rust community. This part of the paper outlines these requirements. 
 
 ### Website functionality
 <!-- Reviewed: 1x rewritten -->
@@ -26,7 +26,7 @@ The Rust Infrastructure team has created a set of guidelines that static website
     * The teams wants to be able to rebuild the website at any time. They therefor require it to be hosted in a GitHub repository that is also managed by them.
 * "The website must be built and deployed with a CI service."
 * "The website must reach an A+ grade on the [Mozilla Observatory](https://observatory.mozilla.org/)."
-    * This requirement focusses on user security as it ensures that multiple security features are enabled for the website. The referenced tool analyzes security features than can toggled through header fields in the HTTP response by the hosting provider. The target grade indicates that the website is configured correctly. 
+    * This requirement focuses on user security as it ensures that multiple security features are enabled for the website. The referenced tool analyzes security features than can toggled through header fields in the HTTP response by the hosting provider. The target grade indicates that the website is configured correctly. 
 * "The website must be hosted on platforms vetted by the infra team."
     * The documentation recommends the usage of _GitHub Pages_ or _Amazon AWS_ in combination with _CloudFront_ as a _content delivery network_. Other providers can be suggested and requested as long as they are deemed to be secure and reliable.
 

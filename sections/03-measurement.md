@@ -1,6 +1,6 @@
 # Fulfillment of requirements \label{sec:measurement}
 <!-- Reviewed: 1x rewritten -->
-The previous chapter has summarized the requirements that are put on Clippy's lint list and provided additional information and reasoning behind them. This section will investigate to which extend these are currently fulfilled. The goal is to identify key areas that could be improved.
+The previous chapter has summarized the requirements that are put on Clippy's lint list and provided additional information and reasoning behind them. This section will investigate to which extent these are currently fulfilled. The goal is to identify key areas that could be improved.
 
 ## Repository requirements
 <!-- Reviewed: 1x newly written. -->
@@ -16,13 +16,13 @@ _Mozilla Observatory_ is a collection of tools that can analyze a website to det
 
 ### Scoring
 <!-- Reviewed: 1x slightly changed -->
-The result of the analyzes is summarized in a single score with a corresponding grade. The score is calculated using a baseline. Each checked criteria can add bonus points or subtracted a penalty. This implementation is used to give different weight to specific configurations. The significance of these modifiers are based on how important the analyzed aspect for security. Scores can range from a minimum of 0 to a maximum of 135, the score of 100 already indicates that the website is configured correctly a higher score can be archived by gaining bonus points. A score of 100 and above corresponds to the grade _A+_ [@github.observatory.scoring].
+The result of the analyses is summarized in a single score with a corresponding grade. The score is calculated using a baseline. Each checked criteria can add bonus points or subtracted a penalty. This implementation is used to give different weight to specific configurations. The significance of these modifiers are based on how important the analyzed aspect for security. Scores can range from a minimum of 0 to a maximum of 135, the score of 100 already indicates that the website is configured correctly a higher score can be archived by gaining bonus points. A score of 100 and above corresponds to the grade _A+_ [@github.observatory.scoring].
 
 The observatory documentation notes that all websites are graded equally, this means certain graded configurations might be unimportant for the specific use case [@mozilla.observatory.faq].
 
 ### Measurement
 <!-- Reviewed: 1x slightly changed -->
-Scanning Clippy's lint list results in an overall grade of _C_ with a score of 55/100. It is to note that the analysis cut of the path to the lint list and graded the domain itself. The results are therefor for the url \texttt{\url{rust-lang.github.io}} in general. The score was calculated using the baseline of 100 points and subtracting a penalty of 45 points. This sanction is the result of three failed tests that are shown in table \ref{tab:scan.rust-lang.github.io.2021-04-24}.
+Scanning Clippy's lint list results in an overall grade of _C_ with a score of 55/100. It is to note that the analysis cut of the path to the lint list and graded the domain itself. The results are therefor for the URL \texttt{\url{rust-lang.github.io}} in general. The score was calculated using the baseline of 100 points and subtracting a penalty of 45 points. This sanction is the result of three failed tests that are shown in table \ref{tab:scan.rust-lang.github.io.2021-04-24}.
 
 \input{sections/03-measurement/observatory-scan-rust-lang.github.io-2021-04-24.tex}
 
@@ -30,4 +30,4 @@ The original scan output with all test results is included in attachment number 
 
 ## Summary
 <!-- Reviewed: 1x newly written. -->
-The requirement evaluation has shown that Clippy's lint list fulfills all requirements with the exception of archiving a A+ grade by the Mozilla Observatory rating engine. The actual grade is a C which is a result of three missing entires in the HTTP response header. The missing values are displayed in table \ref{tab:scan.rust-lang.github.io.2021-04-24}.
+The requirement evaluation has shown that Clippy's lint list fulfills all requirements except for archiving the A+ grade by the Mozilla Observatory rating engine. The actual grade is a C which is a result of three missing entries in the HTTP response header. The missing values are displayed in table \ref{tab:scan.rust-lang.github.io.2021-04-24}.

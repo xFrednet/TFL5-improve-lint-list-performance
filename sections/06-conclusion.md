@@ -26,6 +26,6 @@ The paper, therefore, concludes with two possible actions that can be taken. It 
 
 ## Steps moving forward
 <!-- Reviewed: 1x rewritten + present-->
-Section \ref{sec:solutions} concludes that the missing headers can be set with the use of a content delivery network. The next step is now to investigate if the added complexity and additional use of resources worth it as the website is currently operating to no additional cost to the project. It also has to be taken into consideration that GitHub Pages is still a recommended hosting provider by the Rust Infrastructure Team.
+Section \ref{sec:solutions} concludes that the missing headers can be set with the use of a content delivery network. The next step is now to investigate if the added complexity and additional use of resources worth it as the website is currently operating with no additional cost to the project. It also has to be taken into consideration that GitHub Pages is still a recommended hosting provider by the Rust Infrastructure Team.
 
 If the decision is made to continue the use and deployment using GitHub Pages then it might be worth investigating the HTML meta tag a bit more. The use of the meta tag can address the two main security concerns in regard of the `Strict-Transport-Security` and `X-Content-Type-Options` response header fields. Before using this feature it should be investigated if this functionality is supported by all major browsers as it is not part of the living standard of HTML.

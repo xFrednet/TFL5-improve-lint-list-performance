@@ -12,7 +12,7 @@ This header protects the user from _passive network attacks_ where an attacker e
 
 ### Importance for Clippy
 <!-- Reviewed: 1x rewritten -->
-Clippy's lint list only displays publicly available information about lints in an easily accessible and searchable way. A passive network attack could, therefore, not collect any secret or personal information about the user. Except for the fact that they visited the domain at all. However, this would still be possible with the header as the connected IP is not affected by it. The biggest thread could actually be an active network attack that injects a donation button into the website as several developers have expressed interest to donate to the Rust Foundation in general. This button would then forward the user to another page of the attacker to donate. However, the chance of this is probably negotiable due to the low traffic that Clippy's lint list actually receives. Such an attack would, therefore, be targeted towards a specific user.
+Clippy's lint list only displays publicly available information about lints in an easily accessible and searchable way. A passive network attack could, therefore, not collect any secret or personal information about the user. Except for the fact that they visited the domain at all. However, this would still be possible with the header as the connected IP is not affected by it. The biggest threat could actually be an active network attack that injects a donation button into the website as several developers have expressed interest to donate to the Rust Foundation in general. This button would then forward the user to another page of the attacker to donate. However, the chance of this is probably negotiable due to the low traffic that Clippy's lint list actually receives. Such an attack would, therefore, be targeted towards a specific user.
 
 With all of this being said it has to be noted that all references to the website already include `https` at the start and a user has to deliberately enter the domain with http in front. Most browsers will then still recommend using the encrypted connection or at least add a _not encrypted_ notice next to the URL. All of this results in a very low risk. The header should still be set if the hosting provider provides a simple setting for this. Also, due to the fact that the targeted A+ rating would require this field.
 
@@ -28,7 +28,7 @@ HTML supports frame elements that allow a website to embed an external website i
 
 ### Importance for Clippy \label{sec:analysis.header.x-frame-options.importance}
 <!-- Reviewed: 1x slight adjustments -->
-Clickhijacking is used to make a victim interacts with a different website to use the privileges or data that the user has saved on that site. Clippy's lint list provides the same data to everyone and the only user specific data is the selected color theme. An attacker has, therefore, nothing to gain with this attack. Adding the header would actually reduce flexibility from external users to embed the lint list in their own interface, even if the project at this point does not know of a website doing so.
+Clickhijacking is used to make a victim interact with a different website to use the privileges or data that the user has saved on that site. Clippy's lint list provides the same data to everyone and the only user specific data is the selected color theme. An attacker has, therefore, nothing to gain with this attack. Adding the header would actually reduce flexibility from external users to embed the lint list in their own interface, even if the project at this point does not know of a website doing so.
 
 However, Clippy's lint list is just one site that's hosted under the domain, it should be investigated if other sites contain sensitive data that would require the header. This paper will still look into setting the header as it is required to receive the grade A+ by Mozilla Observatory.
 
@@ -60,6 +60,6 @@ The `X-Content-Type-Options` response header can only be set to `nosniff` which 
 
 ## Summary
 <!-- Reviewed: 1x newly written -->
-This chapter reviewed the three missing header fields that are required to gain the grade A+ by Mozilla Observatory. It was chosen a suggested value for each field that will be used for further reference in this paper. These values were chosen based on the technical background and importance for Clippy. The results are summarizes in table \ref{tab:solution.http-header.target-values}.
+This chapter reviewed the three missing header fields that are required to gain the grade A+ by Mozilla Observatory. It was chosen a suggested value for each field that will be used for further reference in this paper. These values were chosen based on the technical background and importance for Clippy. The results are summarized in table \ref{tab:solution.http-header.target-values}.
 
 \input{sections/04-analysis/01-header-values-table.tex}

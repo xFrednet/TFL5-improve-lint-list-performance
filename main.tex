@@ -15,13 +15,15 @@
 \usepackage{lmodern}                                    % For removing some "LaTeX Font Warning" warnings for unusual font sizes
 
 % Citing
-\usepackage[style=authoryear, backend=biber]{biblatex}  % For citing
+\usepackage[style=authoryear, date=iso, urldate=iso, backend=biber]{biblatex}  % For citing
 \usepackage{csquotes}                                   % Needed by biblatex
 
 % Objects
+\usepackage{verbatim}
 \usepackage{tabularx}                                   % Advanced tables
 \usepackage{enumitem}                                   % customize itemize thingis
-\usepackage{hyperref}                                   % Links
+\usepackage[hidelinks]{hyperref}                                   % Links
+\usepackage{listings}
 \usepackage[footnotes,definitionLists,html,hashEnumerators,smartEllipses,hybrid,citations,pipeTables,tableCaptions]{markdown}
 \usepackage{float}                                      % For creating custom floats
 
@@ -33,16 +35,32 @@
 \setstretch{1.25}                         % Setting the linespacing
 
 % Values
-\title{Title}
-\author{xFrednet}
+\title{How can the internet presentation of the lint list for the rust-clippy project be improved? }
+\author{Fridtjof Stoldt}
 \date{\today}
 
 % Citing
 \addbibresource{references.bib}
 
 % Attachment float
-\newfloat{attachment}{H}{lop}
-\floatname{attachment}{Attachment}
+% TODO xFrednet 2021-05-04 update to apendix thingy how ever it's spelled
+\newfloat{appendix}{H}{lop}
+\floatname{appendix}{Appendix}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Code
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\lstdefinestyle{lineBreakStyle}{
+    numbers=left,
+    stepnumber=1,
+    numbersep=8pt,
+    tabsize=3,
+    showspaces=false,
+    columns=fullflexible,
+    showstringspaces=false,
+    breaklines=true,
+    postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Document
@@ -52,15 +70,17 @@
 % Roman numeration
 \newcounter{savepage}
 \pagenumbering{Roman}
+    \maketitle
+    \newpage
 
     % Table of Conetns
     \tableofcontents
     \newpage
 
     % Other indices
-    \listoffigures
+    % \listoffigures
     \listoftables
-    \listof{attachment}{Attachments}
+    \listof{appendix}{Appendices}
     \newpage
 
     % Arabic numeration

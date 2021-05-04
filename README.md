@@ -10,12 +10,18 @@ Spelling is sadly not my strong suite, I'll go through the paper at the end to c
 
 ## TODOs (Those that are not included in the source files them self)
 * TODO xFrednet 2021-04-15: Maybe add an abstract section to the start.
+* TODO xFrednet 2021-04-24: Check that all writing is in formal English this means no abbreviations like "I'll"
+* TODO xFrednet 2021-05-01: Decide it it's HTTP or http and apply that everywhere
 
 ## Building
-Use the following comments to build the actual document:
+Use the following commands to build the actual document:
 
 ```sh
 $ pdflatex --shell-escape main.tex
 $ biber main
 $ pdflatex --shell-escape main.tex
 ```
+
+<!-- Short: 
+pdflatex --shell-escape main.tex; biber main; pdflatex --shell-escape main.tex;
+-->

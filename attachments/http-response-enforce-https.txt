@@ -1,0 +1,17 @@
+HTTP/1.1 301 Moved Permanently
+Server: GitHub.com
+Content-Type: text/html
+permissions-policy: interest-cohort=()
+Location: https://xfrednet.github.io/rust-clippy/
+X-GitHub-Request-Id: 3620:3A01:104182F:110536D:608C3D70
+Content-Length: 162
+Accept-Ranges: bytes
+Date: Fri, 30 Apr 2021 17:25:04 GMT
+Via: 1.1 varnish
+Age: 0
+X-Served-By: cache-fra19120-FRA
+X-Cache: MISS
+X-Cache-Hits: 0
+X-Timer: S1619803505.769013,VS0,VE87
+Vary: Accept-Encoding
+X-Fastly-Request-ID: b837829c5922d053b087ff1e129d92f5b470a120

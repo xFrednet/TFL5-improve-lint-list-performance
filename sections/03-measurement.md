@@ -4,7 +4,7 @@ The previous chapter has summarized the requirements that are put on Clippy's li
 
 ## Repository requirements
 <!-- Reviewed: 1x newly written. -->
-This first part evaluates the project and repository related requirements for the rust-clippy project. Clippy is as mentioned in \ref{sec:into} the official linter for the Rust language and deployed as part of the Rust installation. This makes Clippy an affiliated project to the Rust organization. The project repository is a part of the rust-lang organization on GitHub and therefore also satisfies the requirement of being managed by the Rust Infrastructure Team. Clippy, therefore, meets the project related requirements.
+This first part evaluates the project and repository related requirements for the rust-clippy project. Clippy is, as mentioned in section \ref{sec:into}, the official linter for the Rust language and deployed as part of the Rust installation. This makes Clippy an affiliated project to the Rust organization. The project repository is a part of the rust-lang organization on GitHub and therefore also satisfies the requirement of being managed by the Rust Infrastructure Team. Clippy, therefore, meets the project related requirements.
 
 ## Hosting requirements
 <!-- Reviewed: 1x newly written. -->
@@ -16,7 +16,7 @@ _Mozilla Observatory_ is a collection of tools that can analyze a website to det
 
 ### Scoring
 <!-- Reviewed: 1x slightly changed -->
-The result of the analyses is summarized in a single score with a corresponding grade. The score is calculated using a baseline. Each checked criteria can add bonus points or subtracted a penalty. This implementation is used to give different weights to specific configurations. The significance of these modifiers are based on how important the analyzed aspect for security. Scores can range from a minimum of 0 to a maximum of 135, the score of 100 already indicates that the website is configured correctly a higher score can be achieved by gaining bonus points. A score of 100 and above corresponds to the grade _A+_ [@github.observatory.scoring].
+The result of the analyses is summarized in a single score with a corresponding grade. The score is calculated using a baseline. Each checked criteria can add bonus points or subtracted a penalty. This implementation is used to give different weights to specific configurations. The significance of these modifiers are based on how important the analyzed aspect is for security. Scores can range from a minimum of 0 to a maximum of 135, the score of 100 already indicates that the website is configured correctly, a higher score can be achieved by gaining bonus points. A score of 100 and above corresponds to the grade _A+_ [@github.observatory.scoring].
 
 The observatory documentation notes that all websites are graded equally, this means certain graded configurations might be unimportant for the specific use case [@mozilla.observatory.faq].
 
@@ -26,7 +26,7 @@ Scanning Clippy's lint list results in an overall grade of _C_ with a score of 5
 
 \input{sections/03-measurement/observatory-scan-rust-lang.github.io-2021-04-24.tex}
 
-The original scan output with all test results is included in attachment number \ref{att:scan.rust-lang.github.io.2021-04-24.json}.
+The original scan output with all test results is included in appendix number \ref{att:scan.rust-lang.github.io.2021-04-24.json}.
 
 ## Summary
 <!-- Reviewed: 1x newly written. -->

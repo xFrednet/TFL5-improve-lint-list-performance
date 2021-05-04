@@ -22,7 +22,7 @@
 \usepackage{verbatim}
 \usepackage{tabularx}                                   % Advanced tables
 \usepackage{enumitem}                                   % customize itemize thingis
-\usepackage{hyperref}                                   % Links
+\usepackage[hidelinks]{hyperref}                                   % Links
 \usepackage{listings}
 \usepackage[footnotes,definitionLists,html,hashEnumerators,smartEllipses,hybrid,citations,pipeTables,tableCaptions]{markdown}
 \usepackage{float}                                      % For creating custom floats
@@ -43,8 +43,9 @@
 \addbibresource{references.bib}
 
 % Attachment float
-\newfloat{attachment}{H}{lop}
-\floatname{attachment}{Attachment}
+% TODO xFrednet 2021-05-04 update to apendix thingy how ever it's spelled
+\newfloat{appendix}{H}{lop}
+\floatname{appendix}{Appendix}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Code
@@ -77,9 +78,9 @@
     \newpage
 
     % Other indices
-    \listoffigures
+    % \listoffigures
     \listoftables
-    \listof{attachment}{Attachments}
+    \listof{appendix}{Appendices}
     \newpage
 
     % Arabic numeration

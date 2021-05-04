@@ -18,7 +18,7 @@ The website has _functional requirements_ which describe the direct functionalit
 
 ### Requirements by the Rust Infrastructure Team
 <!-- Reviewed: 1x rewritten -->
-The Rust Infrastructure team has created a set of guidelines that static websites affiliated with the Rust project should fulfill to be hosted and managed by them. Clippy is an official Rust project and the website itself presents static content, the guidelines, therefore, apply to the website. The requirements are as follows [@rust-forge.static-websites]:
+The Rust Infrastructure team has created a set of guidelines which static websites affiliated with the Rust project should fulfill to be hosted and managed by them. Clippy is an official Rust project and the website itself presents static content. Therefore, the guidelines apply to the website. The requirements are as follows [@rust-forge.static-websites]:
 
 * "The website must be managed by a Rust team, or be officially affiliated with the project."
     * This point excludes community projects due to finite resources of the infrastructure team.

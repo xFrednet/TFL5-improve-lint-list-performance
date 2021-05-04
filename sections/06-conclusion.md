@@ -1,6 +1,6 @@
 # Conclusion
 <!-- Reviewed: 1x rewritten -->
-This paper succeeded in reviewing the research question defined in \label{sec:into.question}. It determined that Clippy's lint list currently does not fulfill all requirements. The paper was then able to find a possible solution for these missing aspects.
+This paper succeeded in reviewing the research question defined in \ref{sec:into.question}. It determined that Clippy's lint list currently does not fulfill all requirements. The paper was then able to find a possible solution for these missing aspects.
 
 ## Summary
 <!-- Reviewed: 1x rewritten + present -->
@@ -16,13 +16,13 @@ The assignment then continued in section \ref{sec:measurement} with an evaluatio
 
 The following section \ref{sec:analysis} analyzed the security concern of these missing headers by explaining their behavior and reasoning behind them. This explanation was based on the formal specification and most relevant documentation. The paper then discussed the importance of Clippy's lint list and suggested an initial value that the specific field should be set to. The results of this evaluation have been summarized in table \ref{tab:solution.http-header.target-values}.
 
-The \ref{sec:solutions} chapter then investigated how these values can be in the selected content host. This includes an investigation of which settings are provided by the used hosting provider GitHub Pages. Following an evaluating of the HTML meta tag and the use of a content delivery network to set these headers.
+The \ref{sec:solutions}th chapter then investigated how these values can be configured in the selected content host. This includes an investigation of which settings are provided by the used hosting provider GitHub Pages. Following an evaluating of the HTML meta tag and the use of a content delivery network to set these headers.
 
 ## Solution
 <!-- Reviewed: 1x rewritten + present -->
 Chapter \ref{sec:solutions} determines that GitHub Pages configurations are not sufficient to meet the set requirements. In \ref{sec:solutions.meta-tag} it is found that the HTML meta tag can be used to set two of the required headers in Firefox and Chromium. This solution has the drawbacks that it is not a universal solution and only HTML document specific. The last investigated solution is the use of a CDN which is able to add the headers under the condition of using a custom domain. The last solution adds complexity to the project and uses additional resources.
 
-The paper, therefore, concludes with two possible actions that can be taken. It now has to be evaluated which one of these should be taken if any. This evaluation extends over the scope of this paper.
+The paper, therefore, concludes with two possible actions that can be taken. It now has to be evaluated which one of these should be taken if any. This evaluation would extend beyond over the scope of this paper.
 
 ## Steps moving forward
 <!-- Reviewed: 1x rewritten + present-->

@@ -1,0 +1,53 @@
+\section{Linting with rustc} \label{sec:plan}
+
+The aim of this paper is to evaluate the usability of graph databases for linting Rust code. This section introduces the linting interface provided by rustc and the \acrlong{ir} used inside the compiler. The concepts behind the \acrshort{ir}s are documented in section \ref{sec:ir}. The insights from this chapter are then used to create a prototype for linting with graph database queries.
+
+\subsection{Intermediate Representations in rustc} \label{sec:plan.rir}
+
+The official Rust compiler uses several stages to translate source code to a defined \acrshort{ir}, which can then be passed to different backends. This structure allows the compiler to target several platforms like LLVM and web assembly. Stages use different \acrshort{ir}s that are specific for their intended purpose.\footnote{The documentation for elements used to construct these \acrlong{ir}s can be found under \url{https://doc.rust-lang.org/nightly/nightly-rustc/} (Accessed: 2021-11-17).} The relevant \acrshort{ir}s as of 2021-11-17 are:
+
+\begin{itemize}
+    \item \textbf{\acrfull{ast}} \label{sec:plan.rir.ast}
+
+        The compilation in rustc starts with the translation of source code into an \acrshort{ast} this \acrshort{ir} is also called \emph{\acrshort{ast}} inside the compiler. Rust supports macros which are expanded as part of this process. \cite{rustcdev2020.syntax} The \acrshort{ast} can be assessed before and after the expansion of these macros \cite{rust-lang0000.docs-lintstore}.
+
+    \newpage
+    \item \textbf{\acrfull{hir}} \label{sec:plan.rir.hir}
+
+        The \acrfull{hir} is the central \acrshort{ir} used by rustc. The \acrshort{hir} is still an \acrshort{ast} representation, where all identifiers have been resolved, macros have been expanded, and some expressions have been desugared. The compiler can resolve expression types during this stage of compilation. Each node in this \acrshort{ast} has a unique identifier, called \mono{HirId}, which can be accessed and referenced in several ways. \cite{rustcdev2020.hir}
+        
+    \item \textbf{\acrfull{thir}}
+    
+        The \acrfull{thir} is created once type checking is completed. \acrshort{thir} is derived from \acrshort{hir} but only contains executable code, without additional information like item definitions. This \acrshort{ir} is mainly used to create the next \acrshort{ir} from the \acrshort{hir} tree. For this translation, the type of every expression is evaluated. The elements of this \acrshort{ir} are separated into different arrays and dropped as soon as they are no longer needed. \acrshort{thir} does not directly represent the program as a graph. \cite{rustcdev2020.thir}
+    
+    \item \textbf{\acrfull{mir}}
+    
+        The \acrshort{mir} is the last \acrshort{ir} used inside rustc before a \acrshort{ir} resembling machine code is passed to the selected backend. \acrshort{mir} is a very simplified version of the program in the form of a \acrlong{cfg} described in section \ref{sec:ir.cfg}. This form allows flow-sensitive code analysis and optimizations, which are complicated to perform on an \acrshort{ast}.  This \acrshort{ir} is used inside the compiler for code analysis. \cite{matsakis2016.mir}
+\end{itemize}
+
+From these \acrshort{ir}s the following once have a graph like structure and can therefore be considered in this paper: \acrshort{ast}, \acrshort{hir} and \acrshort{mir}.
+
+%  Most lints in Clippy operate on the \acrshort{hir} as it provide type information about expressions \cite{clippy0000.addlint}.
+
+
+\subsection{rustc's Linting Interface} \label{sec:plan.linting-api}
+
+Rustc provides a linting interface for internal and external use. The interface provides access to the \acrshort{ast} before and after the expansion of macros and the \acrshort{hir} tree. \cite{rustcdev2021.diagnostic} The functionality to lint the \acrshort{ast} before the expansion of macros is softly deprecated and should therefore be avoided \cite{clippy2020.5518} \cite{rust2020.69838}. The structure and purpose of these \acrshort{ir}s is documented in section \ref{sec:plan.rir}. The compiler internally traverses the respective graphs and passes each node in order to registered callbacks, called lint passes. Linting code that implements this callback can then check the respective nodes and access additional information to check for violations. \cite{rustcdev2021.diagnostic}
+
+Lint and error messages in rustc are emitted as diagnostic instances. These allow internal and external code to leverage rustc's infrastructure for message emission\footnote{Internal diagnostics in rustc can be emitted without using the official linting interface. Using this interface reduces the complexity and is therefore advisable.}. A diagnostic instance consists out of a level which indicates the severity, optionally an error code, a message describing the problem and a span marking the suspicious code. The source code marked by the diagnostic span is displayed as part of the user output, along with the file location. Messages can additionally contain, explanatory comments and suggestions how the problem can be corrected\footnote{The structure of the \texttt{Diagnostic} struct is documented under: \url{https://doc.rust-lang.org/nightly/nightly-rustc/rustc\_errors/diagnostic/struct.Diagnostic.html} (Accessed: 2021-11-20)}. \cite{rustcdev2021.diagnostic} The console output of an emitted diagnostic can be seen in figure \ref{fig:plan.lint-interface.diag-console-output}.
+
+\begin{figure}[H]
+    \footnotesize
+    \begin{verbatim}
+    error: calls to `push` immediately after creation
+      --> $DIR/query_vec_init_then_push.rs:5:5
+       |
+    LL | /     let mut def_err: Vec<u32> = Default::default();
+    LL | |     def_err.push(0);
+       | |___________________^ help: consider using the `vec![]` macro: `let mut def_err = vec![..];`
+    \end{verbatim}
+    \caption{Example of rustc's console output of lint diagnostics}
+    \label{fig:plan.lint-interface.diag-console-output}
+\end{figure}
+
+Suggestions for diagnostic messages are usually created by copying the original source code using spans and then creating a suggestion out of them. The span for the creation is extracted from the nodes of each \acrshort{ir}. All suggestion includes a confidence called \emph{applicability}. The highest confidence allows the automatic application of the suggested change. \cite{rustcdev2021.diagnostic}

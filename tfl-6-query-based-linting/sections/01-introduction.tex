@@ -1,0 +1,19 @@
+\section{Introduction} \label{sec:intro}
+
+Rust is a programming language that focuses on stability, reliability, and performance. The official compiler \emph{rustc}\footnote{The official name starts with a lower-case letter, see \url{https://doc.rust-lang.org/rustc/what-is-rustc.html} (Accessed: 2021-11-17)} uses compile-time checks to ensure reliability and memory-safety. \cite{rust-lang0000.website} The language is designed to enable extensive static code analysis to catch mistakes during compilation. The official linter \emph{Clippy} provides additional code analysis and assistance to users \cite{clippy0000.readme}. The language and other official projects are open source and generally dual-licensed under the MIT and Apache 2.0 license \cite{rust-lang0000.license}.
+
+\subsection{Problem} \label{sec:intro.problem}
+
+In the Rust community, several members have expressed interested in developing lints that are targeted towards individual projects or frameworks. Clippy avoids these types of lints as they are usually higher in maintenance and target a smaller group of users, than general language related analysis. If users would like to develop very specific lints, they are therefore forced to write their own linter. This can be done by using the linting interface of rustc. However, this interface is highly unstable and requires constant maintenance. An additional obstacle is the interface complexity. The compiler design focuses on speed and code translation and not simplicity. Currently, there is no simple and stable way to implement lints for the Rust programming language. \cite{rust-internals.stable-api}
+
+\subsection{Research Question} \label{sec:intro.question}
+
+The described problem in section \ref{sec:intro.problem} leads to the question: \emph{How to design a simple and stable linting interface for Rust?} This question has been discussed in the community and was taken up by a working group outside the Rust organization. During the discussion, a user named \emph{HeroicKatora} suggested implementing a query-based interface. \cite{rust-internals.stable-api} This paper investigates the usage of graph databases for linting in Rust to evaluate a query like interface with the research question: \emph{Is it practical to implement lints for Rust using graph database queries?}
+ 
+\subsection{Aim} \label{sec:intro.aim}
+
+The primary goal of this paper is to evaluate the usage of graph database queries for linting in Rust. The process of linting for this paper involves the export of a graph based \acrlong{ir} representing the source code. Identifying patterns using the exported data and then creating diagnostic instances that can be passed back to rustc. Including the graph export and diagnostic emission in the analysis ensures that the evaluated process can be used in practice.
+
+\subsection{Methodology}
+
+The start of this paper introduces the theoretical concept of graph databases and graph based \acrlong{ir}s. Section \ref{sec:plan} analyses the interface provided by rustc and constructs an implementation plan to develop a prototype for further evaluation. The prototype will be used to reimplement a lint from Clippy with a graph query. The new implementation will be analyzed to evaluate the simplicity and practicality of using graph databases for linting Rust source code. The paper will concludes with a summary and further research potential related to the research question.

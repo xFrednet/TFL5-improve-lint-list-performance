@@ -1,0 +1,92 @@
+The linting process described in section \ref{sec:plan.linting-api} is roughly structured into three phases. First, the linting logic receives nodes of the \acrshort{ir} which are then analyzed for suspicious patterns. This can include checking connected nodes, node properties and expression types. Secondly, the creation of a code suggestion. This step is optional and only done if a sensible sugge
+
+To evaluate the practicality and simplicity of graph database queries for linting, a prototype will be developed. This section describes the selected design, implementation details and conclude with an analysis. For the evaluation, a lint from Clippy will be reimplemented with the prototype. 
+
+\subsection{Design} \label{sec:prot.design}
+
+This subsection documents the design of the developed prototype. The design will not target a specific lint implementation, but rather the general concept of integrating a graph database into the linting process.
+
+\subsubsection{Graph Database}
+
+The prototype developed as part of this paper will use \emph{Neo4j} as a graph database. Neo4j uses labeled property graphs as described in section \ref{sec:gdb}. \emph{Cypher} is used as the native graph query language for Neo4j and is used inside the prototype. The language supports complex graph pattern matching and graph navigation, as described in section \ref{sec:gdb}. The concept evaluated in this paper using Cypher should be transferable to other graph query languages supporting these features.
+
+\subsubsection{Stage of the Linting Process}
+
+The linting process described in section \ref{sec:plan.linting-api} is roughly structured into three phases. First, the linting logic receives nodes of the \acrshort{ir} which are then analyzed for suspicious patterns. This can include checking connected nodes, node properties and expression types. Secondly, the creation of a code suggestion. This step is optional and only done if a sensible suggestion can be created. Lastly, if a lint violation was detected, the creation and emission of a diagnostic instance. This step requires the source node where the diagnostic should be emitted, the affected span and a lint message. Additional notes and help messages can be attached during this step. \cite{clippy0000.addlint}
+
+The prototype developed for this paper tries to implement the first phase of the node analysis with a graph database. For this, the \acrshort{ir} will be exported to the database as a labeled property graph. After the completed export, a graph query is used to detect suspicious graph structures which would usually be evaluated in Rust. The query then returns all relevant information to continue the linting process. One limitation of this model is that the graph database query will only have access to the exported data. Helper functionalities provided by rustc and Clippy are inaccessible. This design might therefore also require additional checks once a suspicious graph pattern is found. The following two steps of creating a suggestion and emitting the diagnostic instance have to be implemented in Rust, as they usually require interfacing with rustc directly.
+
+\subsubsection{Target Intermediate Representation}
+
+Section \ref{sec:ir} introduces two graph-based \acrshort{ir}s which are both used inside rustc. Both represent different aspects of a program. A \acrshort{cfg} enables control flow analysis and performance optimizations. Related lints are implemented in rustc itself. For lints related to language usage, syntactic and semantic analysis, the \acrshort{ast} representation is better suited. The prototype uses the official linting interface of rustc, as it provides access to all \acrshort{ast}-based \acrshort{ir}s. 
+
+Rust uses a strong and static type system to validate the correctness of a program at compile time \cite[p.~9]{jung2021}. In Rust, type information express a part of the program semantics \cite{rustcdev2021.ty-types}. The type information of expressions is available after the \acrshort{hir} tree has been constructed. For this reason, the \acrshort{hir} will be used for the remainder of this paper. It contains all information of the \acrshort{ast} and provides additional node information. It is also the main \acrshort{ir} used inside Clippy. An additional benefit is the unique identifier defined in this stage. The \mono{HirId} can be returned by the graph query to identify and retrieve the node from rustc again.
+
+The \acrshort{hir} tree will need to be transformed into a labeled property graph to export it to the graph database. The \acrshort{hir} nodes have properties and child nodes, which are identified by their order and type. The prototype implementation exports the properties as node properties. Child nodes are attached with a child relationship which holds an index property.
+
+Additional node information like the expression type is not exported, as the type representation is too complex for the scope of this paper. Type and possibly some additional checks will be done in Rust after a suspicious graph pattern has been identified. This chosen solution will be reflected on as part of the prototype evaluation in section \ref{sec:prot.eval}.
+
+The graph will be constructed will be constructed with a lint pass. Each node is then visited individually to create a corresponding node and relationship in the graph database. The linting query will be executed after each function was exported, as rustc's type context is function-specific. It can only be accessed while the lint pass is technically inside a function body.
+
+\subsection{Framework Implementation}
+
+The prototype build as part of this paper uses the \acrshort{hir} as an \acrlong{ir} with the structure of an \acrshort{ast}. The linting prototype will be registered as a lint pass in the linting interface of rustc. Nodes and relationships provided by rustc will be translated into a labeled property graph model for the graph database Neo4j using Cypher as a query language.
+
+Expression types are not translated into a graph or property representation. Type checks are done after a pattern in the graph has been identified. Relationships between nodes are identified with an index during the export.
+
+The linting process of the prototype is done in stages. First, the \acrshort{hir} tree is translated into a labeled property graph. Afterwards, a Cypher graph query is used to identify suspicious graph patterns. The identified nodes are returned to the lint pass for type checking if required. After the successful identification, a diagnostic object will be created and emitted to rustc's linting interface.
+
+This design and structure is based on section \ref{sec:prot.design}. The graph creation source code is provided in appendix \ref{app:lpg-creation-code}. The evaluation is done by reimplementing a Clippy lint using a graph query. The new lint implementation has to pass all tests inside the project. The two implementations will be compared afterwards.
+
+The design could be implemented as planned. The only problem arose during the exportation of the \mono{HirId}s. The identifier internally uses two unsigned 32-bit integers, that are not publicly accessible. The prototype transmutes the \mono{HirId} into integers to export them. This is an unsafe operation that violates the interface of rustc. The transmutation has to be reversed for the creation of \mono{HirId}s as no constructor is accessible outside the compiler. The violation of the interface and usage of an unsafe operation is an accepted risk as part of this prototype.
+
+\subsection{Lint Implementation} \label{sec:prot.lint-impl}
+
+For the evaluation, a lint from Clippy will be reimplemented with a graph query language. Clippy provides over 450 lints as of 2021-11-11 \cite{clippy0000.readme}. The \mono{clippy::vec\_init\_then\_push} lint was selected for the evaluation as it uses graph pattern matching and requires only one type check. The referenced implementation inside Clippy was developed by Jason Newcomb. The lint detects new \texttt{std::vec::Vec<\_>} instances that are immediately used to push new values into. The emitted diagnostic suggest using the \texttt{vec![]} macro, as it is faster and easier to read. The Rust implementation first finds variables that are initialized by a new \texttt{std::vec::Vec<\_>} instance. The logic then continues to check if the following statements push values into the newly created instance. \cite{clippy2021.6538}
+
+The reimplementation has to find value assignments that are used directly afterwards for a push operation. The verification that the value is actually a \texttt{std::vec::Vec<\_>} instance is done afterwards. The query returns the \mono{HirId} of the assignment and method call expressions. The Rust code additionally has to ensure that both statements use the same variables.
+
+A value assignment in Rust can have two \acrshort{hir} tree representations, depending on whether the variable is newly created or reassigned. Here, both cases are covered by one graph pattern, as both representations only differ in the node labels and properties. Combining these into one cypher query increases the complexity of the \emph{where} condition in the query. The query to match all value assignments is displayed in figure \ref{fig:eval.impl.local}. Retrieving the next node and verifying that it is a method call to a \texttt{push} function can be archived with graph navigation. The complete Cypher query to find suspicious graph patterns can be found in appendix \ref{app:query.vec-init-then-push}.
+
+\begin{figure}[H]
+    \small
+    \begin{verbatim}
+        MATCH 
+            (assign {from_expansion: false}),
+            (assign)-[:Child {index: 0}]->(var),
+            (assign)-[:Child {index: 1}]->(init_call:Call)-[:Child]->(init:Path) 
+        WHERE 
+            (var.name = "Pat" OR var.name = "Path")
+            AND (assign.name = "Local" OR assign.name = "Assign")
+            AND (init.path CONTAINS 'new' 
+                OR init.path CONTAINS 'with_capacity'
+                OR init.path CONTAINS 'default')
+        return var, assign, init_call, init
+    \end{verbatim}
+    \caption[Cypher query: variable assignment]{The Cypher query used to match variable assign graph patterns}
+    \label{fig:eval.impl.local}
+\end{figure}
+
+The original lint spans over all following push operations. Implementing this in Cypher would require returning several identified push operations. This functionality is limited by the fact that all return values have to be declared inside the query. Having a fixed amount of returned values limits the following Rust code and might require additional logic.
+
+Detected code patterns are further processed in Rust. The returned \mono{HirId}s are used to retrieve the actual \acrshort{hir} nodes from rustc. These are needed for type checking and to determine the expression span. The expressions are also required to verify that they both reference the same variable. This check can potentially be done in the graph if path expressions get resolved during the graph creation.
+
+The diagnostic emission is almost identical with the original Rust implementation. The difference only arises from the lint name and reduced span, as only one following push statement is marked in the diagnostic. The complete lint code is found in appendix \ref{app:rust.new-vec-init-the-push-impl}.
+
+\subsection{Evaluation} \label{sec:prot.eval}
+
+The \texttt{clippy::vec\_init\_then\_push} lint was successfully implemented with the usage of a graph database query. The new implementation correctly detects all instance in the test file of the original lint and emits a related message. The created diagnostic displays the assign statement and the first \texttt{push} call. The rest of this section will evaluate the implementation in comparison to the Clippy version\footnote{The Clippy lint implementation can be found under \url{https://github.com/rust-lang/rust-clippy/blob/cc9d7fff/clippy_lints/src/vec_init_then_push.rs} (Accessed: 2021-11-18)}.
+
+One advantage of a graph query implementation is the provided tooling for graph databases. With these tools, it is possible to visualize the entire \acrshort{hir} tree and directly check query results. This stance in contrast to rustc which only provides a textual representation of the tree. During lint development, it is required to compile and run Clippy to test if all patterns are detected correctly. Debugging a graph query itself is therefore faster using the provided tools than using a pure Rust implementation.
+
+In rustc, some semantically equivalent expressions can have different representations inside the \acrshort{hir} graph. The two important cases for the reimplemented lint could be combined into one query. However, this will not be possible for every expression. The difference between control flow statements like \texttt{if} and \texttt{match} cannot simply be combined into one statement due to their different graph structure. Clippy provides wrapper objects to handle both these cases alike if needed. These wrappers are not usable in graph query languages.
+
+The exported labeled property graph only contains linting related information. The query only returns the node \mono{HirId} to allow further processing. The internal representation of the \mono{HirId} is not publicly accessible. For this prototype, an unsafe transmute function is used. If graph queries should be used in practice, an interface has to be added to avoid this violation of the interface. The transmutation usage caused no problem during the evaluation.
+
+The benefit of using a graph query for the graph pattern matching is limited by the fact, that most nodes needed to be retrieved from rustc afterwards. The nodes where required for span data, type checking and path resolution. The required overhead in this prototype is about the same length as the entire pattern matching in Clippy's implementation. More information could be exported as part of the labeled property graph to reduce additional checks in Rust. The practicality of a graph database is still reduced by this.
+
+The prototype used Neo4j as a graph database. The use of an external system like Neo4j creates a communication overhead, as two systems have to exchange information. The performance was not measured as part of this prototype. However, the minimum communication error handling used for this paper is with 15 lines, a noticeable part of the implementation.
+
+\subsection{Analysis Result}
+
+The lint implementation \ref{sec:prot.lint-impl} proves that a graph databases can be used as part of the linting process with rustc. The evaluation in section \ref{sec:prot.eval} found several downsides related to the usage of graph queries for linting. Only one real advantage was found related to the usage. Based on this evaluation, the research question defined in \ref{sec:intro.question} concludes that the usage of a graph database for linting Rust code is neither simple nor practical.

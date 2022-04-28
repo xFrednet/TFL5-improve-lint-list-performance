@@ -1,0 +1,42 @@
+\appendix
+
+\section{Labeled Property Graph Creation Prototype} \label{app:lpg-creation-code}
+
+\scriptsize
+\lstinputlisting{res/app/prototype-graph-creation.rs}
+
+\normalsize
+The complete source code is also available under: \url{https://github.com/xFrednet/rust-clippy/tree/20639740} (Accessed: 2021-11-18). This file is located under: \url{https://github.com/xFrednet/rust-clippy/blob/20639740/clippy_lints/src/graph_query_linter.rs} (Accessed: 2021-11-18)
+
+\section[Cypher query: clippy::vec\_init\_then\_push]{Cypher query for the clippy::vec\_init\_then\_push lint} \label{app:query.vec-init-then-push}
+
+\small
+\begin{verbatim}
+MATCH
+    (assign {from_expansion: false}),
+    (assign)-[:Child {index: 0}]->(var),
+    (assign)-[:Child {index: 1}]->(init_call:Call)-[:Child]->(init:Path) 
+WHERE
+    (var.name = "Pat" OR var.name = "Path")
+    AND (assign.name = "Local" OR assign.name = "Assign")
+    AND (init.path CONTAINS 'new' 
+        OR init.path CONTAINS 'with_capacity'
+        OR init.path CONTAINS 'default')
+
+MATCH
+    (scope)-[assign_edge:Child]->(assign),
+    (scope)-[next_edge:Child]->(method:MethodCall)
+WHERE
+    next_edge.index = assign_edge.index + 1
+    AND method.ident = "push"
+
+return assign.hir_id, method.hir_id
+\end{verbatim}
+
+\section{Rust implementation to process the graph query results} \label{app:rust.new-vec-init-the-push-impl}
+
+\scriptsize
+\lstinputlisting{res/app/prototype-lint-impl.rs}
+
+\normalsize
+The complete source code is also available under: \url{https://github.com/xFrednet/rust-clippy/tree/20639740} (Accessed: 2021-11-18). This file is located under: \url{https://github.com/xFrednet/rust-clippy/blob/20639740/clippy_lints/src/graph_query_linter.rs} (Accessed: 2021-11-18)

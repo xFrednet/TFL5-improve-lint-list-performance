@@ -1,0 +1,17 @@
+\section{Conclusion}
+
+This paper succeeded to evaluate the usage of a graph database for linting Rust code. A lint was successfully recreated to assess the practicality of a graph query language for linting. It was determined that the usage of a graph database is impractical with the current linting interface of rustc.
+
+\subsection{Summary}
+
+Section \ref{sec:intro} introduced the Rust project and the general interest of the community to write custom lints. The linting interface of the official compiler is highly unstable. The community has started to discuss alternative options to provide an interface for linting. This paper investigates the research question: \q{\emph{Is it practical to implement lints for Rust using graph database quieries?}}
+
+A prototype using rustc's linting interface was developed to assess the usage of graph database queries for linting Rust code. The \acrshort{hir} tree of rustc is exported as a labeled property graph to a Neo4j database. The query language Cypher is used for complex graph pattern matching and graph navigation.  
+
+The prototype and lint implementation are analyzed in section \ref{sec:prot.eval}. The assessment concluded that the usage of graph databases is impractical. The only found advantage is the visualization and debugging support provided by graph database tool. In contrast, several downsides were found. The \acrshort{hir} graph export and import use unsafe code and violate the interface of rustc to access the unique node identifier. Identified nodes needed to be retrieved from the compiler again for type checking and the creation of a diagnostic object. This limits the usefulness of finding suspicious code pattern with Cypher beforehand. The usage of Neo4j as an external system additionally added a communication overhead. The analysis concluded that the disadvantages outweigh the found benefit.
+
+\subsection{Outlook}
+
+This paper used an external system for graph pattern matching and graph navigation. Most found issues arise from the usage of this external system. A Rust implementation for these functionalities can potentially avoid these disadvantages. It is still questionable if a different interface to rustc's \acrshort{ir}s would improve the practicality of using a graph-query-like approach.
+
+Another option could be to create a cross-compiler to translate graph queries into Rust code. Clippy already supports some automatic lint logic creation with the \mono{clippy::author} attribute \cite{clippy0000.addlint}. This concept can potentially be expanded to support graph navigation.

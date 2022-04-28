@@ -1,0 +1,141 @@
+\documentclass[a4paper, 11pt]{article}
+
+% Language
+% \usepackage[ngerman]{babel}                             % Damit das Dokument auf Deutsch ist
+\usepackage[T1]{fontenc}                                % To support copy and paste of chars like ÄÜÖ from the PDF file
+\usepackage[utf8]{inputenc}                             % UTF8 Support
+\usepackage{parskip}                                    % For the correct line spacing.
+
+% Neded magic
+\usepackage{array}
+\usepackage{color}                  % Color1
+\usepackage[table,xcdraw]{xcolor}   % Color2
+
+% Layout
+\usepackage[margin=2cm]{geometry}   % 2cm page margin
+\usepackage{fancyhdr}               % Graphics
+\usepackage{setspace}               % For setting the line spacing
+\usepackage{enumitem}               % For removing the spacing between \items
+\usepackage{lmodern}                % For removing some "LaTeX Font Warning" warnings for unusual font sizes
+\usepackage{scrextend}              % Multi link to footnote
+
+% Citing
+\usepackage[style=numeric, backend=biber]{biblatex}     % For citing
+\usepackage{csquotes}                                   % Needed by biblatex
+
+% Objects
+\usepackage[acronym]{glossaries}    % Acronyms
+\usepackage{tabularx}               % Advanced tables
+\usepackage{multirow}               % Advanced tables 2
+\usepackage[hidelinks]{hyperref}               % Links
+\usepackage{float}                  % For floats
+\usepackage{graphicx}               % Include images
+\usepackage{listings}               % Code block
+\usepackage{wrapfig}                % Put figures and text side by side
+\usepackage{qtree}                  % Tree graphs
+\usepackage{tikz}                   % Graphics and graphs
+\usetikzlibrary{automata, arrows}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Configuaration
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Layout
+\renewcommand{\familydefault}{\sfdefault} % Setting the font to sans serif -> Arial
+\setstretch{1.25}                         % Setting the line spacing
+
+% Hurenkinder und Schusterjungen verhindern
+\clubpenalty10000
+\widowpenalty10000
+\displaywidowpenalty=10000
+
+% Values
+\title{TFL 6 \\ \large Evaluating the implementation of lints for Rust based on graph database queries.}
+\author{Fridtjof Peer Stoldt}
+\date{\today}
+
+\iffalse
+    \newcommand{\todo}[1]{\textcolor{cyan}{TODO: #1}}
+    \newcommand{\todolst}[1]{\textcolor{cyan}{TODO: \begin{itemize} #1 \end{itemize}}}
+    \newcommand{\note}[1]{\textcolor{gray}{[#1]}}
+\else
+    \newcommand{\todo}[1]{}
+    \newcommand{\todolst}[1]{}
+    \newcommand{\note}[1]{}
+\fi
+
+% utils
+\newcommand{\mono}[1]{\texttt{#1}}
+
+% Citing
+\addbibresource{sources.bib}
+\newcommand{\q}[1]{#1}
+
+\newcommand{\PreserveBackslash}[1]{\let\temp=\\#1\let\\=\temp}
+\newcolumntype{C}[1]{>{\PreserveBackslash\centering}p{#1}}
+\newcolumntype{R}[1]{>{\PreserveBackslash\raggedleft}p{#1}}
+\newcolumntype{L}[1]{>{\PreserveBackslash\raggedright}p{#1}}
+
+% Break URLs where ever
+\expandafter\def\expandafter\UrlBreaks\expandafter{\UrlBreaks% save the current one
+  \do\a\do\b\do\c\do\d\do\e\do\f\do\g\do\h\do\i\do\j%
+  \do\k\do\l\do\m\do\n\do\o\do\p\do\q\do\r\do\s\do\t%
+  \do\u\do\v\do\w\do\x\do\y\do\z\do\A\do\B\do\C\do\D%
+  \do\E\do\F\do\G\do\H\do\I\do\J\do\K\do\L\do\M\do\N%
+  \do\O\do\P\do\Q\do\R\do\S\do\T\do\U\do\V\do\W\do\X%
+  \do\Y\do\Z\do\*\do\-\do\~\do\'\do\"\do\-}%
+
+% Wordwrap in listings
+\lstset{
+  basicstyle=\ttfamily,
+  columns=fullflexible,
+  frame=single,
+  breaklines=true,
+  postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
+  numbers=left,
+}
+
+\input{glossary}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Document
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+    % Roman numeration
+    \newcounter{savepage}
+    \pagenumbering{Roman}
+
+    % Title
+    \maketitle
+    \newpage
+
+    % Table of Content
+    \tableofcontents
+    \newpage
+
+    % Other indices
+    \listoffigures
+    % \listoftables
+    \printglossary[type=\acronymtype]
+    \newpage
+
+    % Arabic numeration
+    \setcounter{savepage}{\arabic{page}}
+    \pagenumbering{arabic}
+    \newpage
+
+    \input{sections.tex}
+    \newpage
+
+    % Roman numeration
+    \pagenumbering{Roman}
+    \setcounter{page}{\thesavepage}
+
+    % Literaturverzeichnis
+    \printbibliography
+    \newpage
+
+    % Attachments
+    \input{appendix.tex}
+
+\end{document}
